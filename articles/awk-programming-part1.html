@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2023-04-30 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWK Programming - Part 1</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Pushkar Raj">
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/> 
+<link rel="stylesheet" type="text/css" href="/assets/css/style.css"/> 
+<link rel="stylesheet" type="text/css" href="/assets/css/fonts.css"/> 
+<script type="text/javascript" src="/assets/js/script.js" defer></script> 
+</head>
+<body>
+<header id="preamble" class="status">
+<div class="container">
+  <div class="user-info">
+    <img alt="Profile Picture" src="https://avatars.githubusercontent.com/u/86090336"/>
+    <a class="user-name" href="/">Pushkar Raj</a>
+    <div id="toggler"></div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/articles">All Articles</a></li>
+      <li><a href="/til">Today I Learnt</a></li>
+      <li><a href="https://github.com/px86">My Github</a></li>
+    </ul>
+  </nav>
+  <!-- Use CSS and JS to place this date below the post heading. -->
+  <div id="date"><span class="timestamp">2023-04-15</span></div>
+</div>
+</header>
+<main id="content">
+<header>
+<h1 class="title">AWK Programming - Part 1</h1>
+<p class="subtitle">Introduction, patterns, actions, and rules</p>
+</header><p>
+<a href="https://en.wikipedia.org/wiki/AWK">AWK</a> is a very powerful text processing scripting language and utility. It is a standard feature of most UNIX like operating systems. It is named after its creators: Alfred Aho (A), Peter Weinberger (W), and Brian Kernighan (K). If you want to be an effective user of UNIX like systems, some knowledge of AWK (together with some shell scripting) is absolutely necessary.
+</p>
+
+<p>
+I will be using the GNU project's implementation of the AWK programming language, <a href="https://www.gnu.org/software/gawk/">gawk</a> version <b>5.1.0</b> throughout this series. GNU as with most of their products, offer a comprehensive documentation for gawk. You can read it  <a href="https://www.gnu.org/software/gawk/manual/gawk.html">here</a>.
+</p>
+
+<p>
+I came to know that on my <i>Debian 11 bullseye</i> system, the default installation for awk was <a href="https://linux.die.net/man/1/mawk">mawk</a>, and not gawk. Hmmm&#x2026;
+</p>
+
+<p>
+Anyways let's get started.
+</p>
+
+<div id="outline-container-org0f292ef" class="outline-2">
+<h2 id="org0f292ef">Invoking awk</h2>
+<div class="outline-text-2" id="text-org0f292ef">
+<p>
+The most common ways of calling <code>awk</code> is as follows:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">awk <span class="org-string">'program'</span> file1 file2 ...
+awk -f program-file file1 file2 ...
+</pre>
+</div>
+
+<p>
+In the first case you specify the program as a command line argument to the awk executable. In the second case you put the program in a file and pass that file with the <code>-f</code> option to the executable.
+</p>
+
+<p>
+Note that if you have multiple script files, you can provide multiple <code>-f</code> options. In that case all the script files will be concatenated before processing the input data files. (But why do this!!!)
+</p>
+
+<p>
+Also, if you want to create an executable awk script, put <code>#!/bin/awk -f</code>  (or whatever the location of awk is on your system) as the shebang line. Make sure you do not pass any other command line option, other than the <code>-f</code> option, because, when the operating system creates a process out of the shebang, it passes everything in the shebang line  that comes after the executable name, as a single command line argument to the process. This can create problems that are hard to detect.
+</p>
+
+
+<p>
+If you don't provide any input files, data is read from <code>stdin</code>. For example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">ls -l | awk <span class="org-string">'{print}'</span>
+</pre>
+</div>
+
+<p>
+Also, you can mix <code>stdin</code> and input files (not sure why or when this might be useful!!!).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">cat ~/.bashrc | awk <span class="org-string">'{print}'</span> before.txt - after.txt
+</pre>
+</div>
+
+<p>
+This will print the content of the <code>before.txt</code> file, then the <code>.bashrc</code>, and finally <code>after.txt</code> file.
+</p>
+
+<p>
+Notice the minus <code>-</code> in the list of file names. It means <code>stdin</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc7d233f" class="outline-2">
+<h2 id="orgc7d233f">Rules - pattern, action pairs</h2>
+<div class="outline-text-2" id="text-orgc7d233f">
+<p>
+<i>An awk program is a collection of one or more rules. Each rule consists of a pattern and an associated action.</i>
+</p>
+
+<p>
+The following pseudocode shows the flow of an awk program:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-comment-delimiter"># </span><span class="org-comment">iterate over each line of the input file</span>
+<span class="org-keyword">for</span> line <span class="org-keyword">in</span> currentFile.lines:
+    <span class="org-comment-delimiter"># </span><span class="org-comment">iterate over each rule in the awk program</span>
+    <span class="org-keyword">for</span> rule <span class="org-keyword">in</span> program.rules:
+        <span class="org-comment-delimiter"># </span><span class="org-comment">match the line against the pattern in the rule</span>
+        <span class="org-keyword">if</span> match(rule.pattern, line):
+            <span class="org-comment-delimiter"># </span><span class="org-comment">execute the action if the match is successful</span>
+            execute(rule.action, line)
+</pre>
+</div>
+
+<p>
+Consider the following <code>fruits.txt</code> file:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">apples
+oranges
+pineapples
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-shell">awk <span class="org-string">'/apples/ {print}'</span> fruits.txt
+</pre>
+</div>
+
+<p>
+Running this will produce the following output:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">apples
+pineapples
+</pre>
+</div>
+
+<p>
+The 1st and the 3rd line matched with the <i><i>apples</i></i> pattern, and hence where printed. In fact, the <i><i>apples</i></i> pattern is a regexp.
+</p>
+</div>
+
+<div id="outline-container-orgcddf34b" class="outline-3">
+<h3 id="orgcddf34b">The BEGIN and END special patterns</h3>
+<div class="outline-text-3" id="text-orgcddf34b">
+<p>
+The <code>BEGIN</code> and <code>END</code> are special patterns in awk. The action associated with the <code>BEGIN</code> pattern is executed before any of the input files are processed. Similarly, the action associated with the <code>END</code> pattern is executed when all the input files are processed.
+</p>
+
+<p>
+We will get back to this pattern-action pair concept soon. But let's learn about records and fields first.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcc25d25" class="outline-2">
+<h2 id="orgcc25d25">Records, fields, $0, $1, &#x2026; $NF</h2>
+<div class="outline-text-2" id="text-orgcc25d25">
+<p>
+<i>Awk works on a file, one record at a time.</i>
+</p>
+
+<p>
+What consists a record in a file, depends on the value of the special variable <code>RS,</code> known as the <i>record separator</i>. The default value of <code>RS</code> is the newline character, which means each line of the input file is a record. The special variable <code>NR</code> stores the current record number.
+</p>
+
+<p>
+For example, the following command will print even numbered lines of  <code>file.txt</code>,
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">awk <span class="org-string">'NR %2 == 0 {print}'</span> file.txt
+</pre>
+</div>
+
+<p>
+Similar to records, what consists a field in a record, depends on the value of the <code>FS</code> (<i>field separator</i>) variable. By default fields are separated by whitespace characters (space or tabs), where repeated occurrence of whitespaces is considered as a single whitespace.
+</p>
+
+<p>
+In a record, <code>$1</code> refers to the first field, <code>$2</code> to the second, and so on.
+<code>$0</code> refers to the entire record. The special variable <code>NF</code> stores the number of fields in the current record. So, <code>$NF</code> can be used to refer to the last field, <code>$(NF-1)</code> to the second last field and so on.
+</p>
+</div>
+</div>
+</main>
+<footer id="postamble" class="status">
+<p class="footer-block">
+  Copyright &copy 2021-2023 Pushkar Raj. Read the notice about <a href="/license.html">license terms</a>.
+</p>
+<p class="footer-block">
+  Created using <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.3)
+</p>
+</footer>
+</body>
+</html>
