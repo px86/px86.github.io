@@ -9,7 +9,8 @@
     --font-monospace:  'Cascadia Mono', monospace;
 
     --color-dark-primary:   #000000;
-    --color-dark-secondary: #121212;
+    --color-dark-secondary: #111111;
+    --color-dark-source: #060606;
     --color-red:   #ff6347;
     --color-green: #98fb98;
     --color-yellow: #ebcb8b;
@@ -187,7 +188,7 @@ code {
 .org-src-container { position: relative; }
 
 pre {
-    background: var(--color-dark-secondary);
+    background: var(--color-dark-source);
     font-family: var(--font-monospace);
     font-size: 0.95em;
     overflow: auto;
@@ -220,18 +221,18 @@ pre.src {
 .org-src-container:hover .copy-btn { display: block;  };
 /* For syntax highlighting in source code blocks */
 .org-builtin { color: #EC5f67; }
-.org-comment { color: #65737E; font-style: italic; }
-.org-comment-delimiter { color: #65737E; font-style: italic; }
-.org-constant { color: #F99157; }
+.org-comment { color: #9099AB; font-style: italic; }
+.org-comment-delimiter { color: #9099AB; font-style: italic; }
+.org-constant { color: #81A1C1; }
 .org-doc { color: #8b969e; font-style: italic; }
-.org-function-name, .org-css-selector { color: #6699CC; }
-.org-keyword { color: #C594C5; }
+.org-function-name, .org-css-selector { color: #EBCB8B; }
+.org-keyword { color: #81A1C1; }
 .org-regexp-grouping-backslash { color: #5FB3B3; font-weight: bold; }
 .org-regexp-grouping-construct { color: #5FB3B3; font-weight: bold; }
-.org-string, .org-css-property { color: #99C794; }
-.org-type { color: #FAC863; }
-.org-preprocessor { color: #5FB3B3; font-weight: bold; }
-.org-variable-name { color: #F99157; }
+.org-string, .org-css-property { color: #8FBCBB; }
+.org-type { color: #A3BE8C; }
+.org-preprocessor { color: #88C0D0; font-weight: bold; }
+.org-variable-name { color: #88C0D0; }
 .org-warning { /* font-lock-warning-face */ color: #ff0000; font-weight: bold; }
 
 /* Org keywords and tags */
