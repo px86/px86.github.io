@@ -21,7 +21,7 @@
         (format "*%s*" filename)
       (format "{{{timestamp(%s)}}} [[file:%s][%s]]"
               (format-time-string
-	       "%Y-%m-%d"
+               "%Y-%m-%d"
                (org-publish-find-date filename project))
               filename title))))
 
@@ -29,68 +29,68 @@
 (setq org-publish-project-alist
       (list
        (list "articles"
-	     :recursive t
-	     :base-directory "./source/articles"
-	     :publishing-directory "./build/articles"
-	     :publishing-function 'org-html-publish-to-html
-	     :with-creator t
-	     :with-toc nil
-	     :auto-sitemap t
-	     :sitemap-title "All Articles"
-	     :sitemap-filename "index.org"
-	     :sitemap-style 'list
-	     :sitemap-format-entry #'my-sitemap-date-title-entry-format
-	     :sitemap-sort-files 'anti-chronologically
-	     :section-numbers nil)
+             :recursive t
+             :base-directory "./source/articles"
+             :publishing-directory "./build/articles"
+             :publishing-function 'org-html-publish-to-html
+             :with-creator t
+             :with-toc nil
+             :auto-sitemap t
+             :sitemap-title "All Articles"
+             :sitemap-filename "index.org"
+             :sitemap-style 'list
+             :sitemap-format-entry #'my-sitemap-date-title-entry-format
+             :sitemap-sort-files 'anti-chronologically
+             :section-numbers nil)
        (list "til"
-	     :recursive t
-	     :base-directory "./source/til"
-	     :publishing-directory "./build/til"
-	     :publishing-function 'org-html-publish-to-html
-	     :with-creator t
-	     :with-toc nil
-	     :auto-sitemap t
-	     :sitemap-title "Today I Learnt"
-	     :sitemap-filename "index.org"
-	     :sitemap-style 'list
-	     :sitemap-format-entry #'my-sitemap-date-title-entry-format
-	     :sitemap-sort-files 'anti-chronologically
-	     :section-numbers nil)
+             :recursive t
+             :base-directory "./source/til"
+             :publishing-directory "./build/til"
+             :publishing-function 'org-html-publish-to-html
+             :with-creator t
+             :with-toc nil
+             :auto-sitemap t
+             :sitemap-title "Today I Learnt"
+             :sitemap-filename "index.org"
+             :sitemap-style 'list
+             :sitemap-format-entry #'my-sitemap-date-title-entry-format
+             :sitemap-sort-files 'anti-chronologically
+             :section-numbers nil)
        (list "site-pages"
-	     :recursive nil
-	     :base-directory "./source"
-	     :publishing-directory "./build"
-	     :publishing-function 'org-html-publish-to-html
-	     :with-creator t
-	     :with-toc nil
-	     :section-numbers nil)
+             :recursive nil
+             :base-directory "./source"
+             :publishing-directory "./build"
+             :publishing-function 'org-html-publish-to-html
+             :with-creator t
+             :with-toc nil
+             :section-numbers nil)
        (list "static-files"
-	     :recursive t
-	     :base-directory  "./source/assets"
-	     :publishing-directory "./build/assets"
-	     :base-extension "css\\|js\\|png\\|jpg\\|gif\\|svg\\|ico\\|pdf\\|mp3\\|wav\\|woff2?\\|ttf\\|csv"
-	     :publishing-function 'org-publish-attachment
-	     )))
+             :recursive t
+             :base-directory  "./source/assets"
+             :publishing-directory "./build/assets"
+             :base-extension "css\\|js\\|png\\|jpg\\|gif\\|svg\\|ico\\|pdf\\|mp3\\|wav\\|woff2?\\|ttf\\|csv"
+             :publishing-function 'org-publish-attachment
+             )))
 
 
-(setq org-html-htmlize-output-type 'css		;; Only add css classes into the HTML, don't include inline styles
-      org-html-validation-link nil		;; Don't include the validation service link
-      org-html-head-include-scripts nil		;; Don't include default scripts in exported documents
-      org-html-head-include-default-style nil	;; Don't include default css in exported documents
+(setq org-html-htmlize-output-type 'css         ;; Only add css classes into the HTML, don't include inline styles
+      org-html-validation-link nil              ;; Don't include the validation service link
+      org-html-head-include-scripts nil         ;; Don't include default scripts in exported documents
+      org-html-head-include-default-style nil   ;; Don't include default css in exported documents
       org-html-doctype "html5"
-      org-html-html5-fancy t			;; Use new html5 elements
-      org-html-divs				;; Use more specific html tags instead of 'divs'
+      org-html-html5-fancy t                    ;; Use new html5 elements
+      org-html-divs                             ;; Use more specific html tags instead of 'divs'
       '((preamble "header" "preamble")
-	(content "main" "content")
-	(postamble "footer" "postamble"))
+        (content "main" "content")
+        (postamble "footer" "postamble"))
       org-html-metadata-timestamp-format "%Y-%m-%d")
 
 ;; Include custom css/js into the exported html document's head tag
 (setq org-html-head-extra
       (concat "<link rel=\"icon\" type=\"image/x-icon\" href=\"/assets/favicon.ico\"/> \n"
-	      "<link rel=\"stylesheet\" type=\"text/css\" href=\"/assets/css/style.css\"/> \n"
-	      "<link rel=\"stylesheet\" type=\"text/css\" href=\"/assets/css/fonts.css\"/> \n"
-	      "<script type=\"text/javascript\" src=\"/assets/js/script.js\" defer></script> \n"))
+              "<link rel=\"stylesheet\" type=\"text/css\" href=\"/assets/css/style.css\"/> \n"
+              "<link rel=\"stylesheet\" type=\"text/css\" href=\"/assets/css/fonts.css\"/> \n"
+              "<script type=\"text/javascript\" src=\"/assets/js/script.js\" defer></script> \n"))
 
 (defun my-read-file (filename)
   "Return the contents of FILENAME."
