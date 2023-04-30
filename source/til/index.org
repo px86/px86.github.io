@@ -1,0 +1,3 @@
+#+TITLE: Today I Learnt
+
+- {{{timestamp(2023-04-30)}}} [[file:waiting-for-io-in-c.org][Waiting for I/O in C]]

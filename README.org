@@ -1,0 +1,7 @@
+#+TITLE: px86.github.io
+#+AUTHOR: Pushkar Raj
+#+AUTHOR: px86@protonmail.com
+#+DATE: [2022-09-24 Sat]
+
+Source files for my website at https://px86.github.io can be found in the =source/= directory.
+If you are interested in publishing your own website using =org-mode=, have a look at the =build-site.el= script.

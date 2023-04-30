@@ -1,0 +1,12 @@
+#+TITLE: Pushkar Raj
+#+SUBTITLE: Welcome to my personal website, a place where I share, what I learn!
+#+DESCRIPTION: Homepage of Pushkar Raj's website.
+#+OPTIONS: toc:nil
+
+* Recent Articles
+
+#+INCLUDE: articles/index.org :lines "3-14"
+
+* Today I Learnt
+
+#+INCLUDE: til/index.org :lines "3-8"
