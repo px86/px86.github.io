@@ -1,5 +1,5 @@
 #+TITLE: How to include brackets [] in elisp regexp
-#+SUBTITLE: escaping =\]= doesn't work
+#+SUBTITLE: when escaping =\]= doesn't work
 #+AUTHOR: Pushkar Raj
 #+DATE: [2023-05-01 Mon]
 
@@ -36,3 +36,5 @@ So, I ended up writing the below function for normalizing strings for filenames.
                              "[ _-]")
                "-")))
 #+end_src
+
+I will have to look deeper into it!
