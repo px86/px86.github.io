@@ -1,0 +1,38 @@
+#+TITLE: How to include brackets [] in elisp regexp
+#+SUBTITLE: escaping =\]= doesn't work
+#+AUTHOR: Pushkar Raj
+#+DATE: [2023-05-01 Mon]
+
+Today I was trying to write an elisp function that converts a given string into a normalized filename. The idea was to remove all the special characters, replace the spaces with dashes =-=, and lower-case the entire thing.
+
+I was using the =split-string= function to split the given string by a regexp of special characters. I tried to include brackets into the regexp by escaping the closing bracket =\]=, like below, but it was not giving the expected result.
+
+#+begin_src emacs-lisp
+  (string-split "[a] b"
+                "[ [\]]" t)
+
+  ;; Output: ("[a] b")
+  ;; I need: ("a" "b")
+#+end_src
+
+Then I found [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Regexp-Example.html][this example]] in the emacs manual. It uses the closing bracket =]= as the first character inside =[...]=, like below,
+
+#+begin_src emacs-lisp
+  (string-split "[a] b"
+                "[][ ]" t)
+
+  ;; Output: ("a" "b")
+  ;; It worked!
+#+end_src
+
+So, I ended up writing the below function for normalizing strings for filenames.
+
+#+begin_src emacs-lisp
+  (defun my-normalize-string-for-filename (string)
+    "Downcase and remove special charactes from string."
+    (downcase (string-join
+               (split-string string
+                             "[] ~!@#$%^&*()+={}[\\|/;:,.'\"<>?]+" t
+                             "[ _-]")
+               "-")))
+#+end_src
