@@ -45,9 +45,9 @@
 Let's get started!
 </p>
 
-<div id="outline-container-org47e0a1b" class="outline-2">
-<h2 id="org47e0a1b">Setup</h2>
-<div class="outline-text-2" id="text-org47e0a1b">
+<div id="outline-container-org664db16" class="outline-2">
+<h2 id="org664db16">Setup</h2>
+<div class="outline-text-2" id="text-org664db16">
 <p>
 Most probably, the openssl tool would already be installed on your system. You can verify this by running the following command in your shell,
 </p>
@@ -86,9 +86,9 @@ For the demonstration purpose, let's create a dummy file called <code>secret.txt
 </div>
 </div>
 
-<div id="outline-container-orgcc6543e" class="outline-2">
-<h2 id="orgcc6543e">Encryption</h2>
-<div class="outline-text-2" id="text-orgcc6543e">
+<div id="outline-container-org5c7801d" class="outline-2">
+<h2 id="org5c7801d">Encryption</h2>
+<div class="outline-text-2" id="text-org5c7801d">
 <p>
 We will be using the <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES 256</a> encryption algorithm to encrypt the file. AES is a symmetric-key encryption algorithm, which means that the same key is used to encrypt as well as decrypt the data. The length of the key can be 128, 192 or 256 bits. We would be using a 256 bit key, hence the algorithm is called <code>AES-256</code>.
 </p>
@@ -188,9 +188,9 @@ We will remove the <code>secret.txt</code> file, which contains our secret messa
 </div>
 </div>
 
-<div id="outline-container-org81b65fd" class="outline-2">
-<h2 id="org81b65fd">Decryption</h2>
-<div class="outline-text-2" id="text-org81b65fd">
+<div id="outline-container-orga4bee8f" class="outline-2">
+<h2 id="orga4bee8f">Decryption</h2>
+<div class="outline-text-2" id="text-orga4bee8f">
 <p>
 The command for decrypting a file is almost same, except here we use the <code>-d</code> flag (d for decryption), instead of <code>-e</code> (e for encryption), and the input-output files change accordingly.
 </p>
@@ -206,9 +206,9 @@ This will ask for the passphrase. After entering the correct passphrase, a plain
 </div>
 </div>
 
-<div id="outline-container-org9556256" class="outline-2">
-<h2 id="org9556256">Note</h2>
-<div class="outline-text-2" id="text-org9556256">
+<div id="outline-container-orgfdaa4a5" class="outline-2">
+<h2 id="orgfdaa4a5">Note</h2>
+<div class="outline-text-2" id="text-orgfdaa4a5">
 <p>
 This method is used to encrypt one file at a time. If you want to encrypt multiple files in one go, then make a tarball of all the files, and then encrypt the tarball with this method.
 </p>

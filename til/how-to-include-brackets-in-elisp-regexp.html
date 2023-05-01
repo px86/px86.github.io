@@ -36,7 +36,7 @@
 <main id="content">
 <header>
 <h1 class="title">How to include brackets [] in elisp regexp</h1>
-<p class="subtitle">escaping <code>\]</code> doesn't work</p>
+<p class="subtitle">when escaping <code>\]</code> doesn't work</p>
 </header><p>
 Today I was trying to write an elisp function that converts a given string into a normalized filename. The idea was to remove all the special characters, replace the spaces with dashes <code>-</code>, and lower-case the entire thing.
 </p>
@@ -81,6 +81,10 @@ So, I ended up writing the below function for normalizing strings for filenames.
              <span class="org-string">"-"</span>)))
 </pre>
 </div>
+
+<p>
+I will have to look deeper into it!
+</p>
 </main>
 <footer id="postamble" class="status">
 <p class="footer-block">
