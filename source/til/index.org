@@ -1,4 +1,5 @@
 #+TITLE: Today I Learnt
 
+- {{{timestamp(2023-05-02)}}} [[file:built-in-memoization-support-in-python.org][Built-in memoization support in Python]]
 - {{{timestamp(2023-05-01)}}} [[file:how-to-include-brackets-in-elisp-regexp.org][How to include brackets [] in elisp regexp]]
 - {{{timestamp(2023-04-30)}}} [[file:waiting-for-io-in-c.org][Waiting for I/O in C]]

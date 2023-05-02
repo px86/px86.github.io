@@ -1,0 +1,52 @@
+#+TITLE: Built-in memoization support in Python
+#+SUBTITLE: the =cache= and =lru_cache= decorators
+#+AUTHOR: Pushkar Raj
+#+EMAIL: px86@protonmail.com
+#+DATE: [2023-05-02 Tue]
+
+In Python, the =functools= module provides two useful decorators, =cache= and =lru_cache=. As their names suggest, they are used to cache the results of function calls.
+
+For example, the following code takes a few seconds to compute the 40th /fibonacci/ number (because of redundant recursive calls).
+
+#+begin_src python
+  def fib(n: int) -> int:
+    """Compute the n'th fibonacci number."""
+    return fib(n-1) + fib(n-2) if n > 2 else n
+
+  fib(40)
+#+end_src
+
+
+We can improve the performance by caching the results of the function calls. We just have to decorate the =fib= function with the =cache= decorator.
+
+#+begin_src python
+  from functools import cache
+
+  @cache
+  def fib(n: int) -> int:
+    """Compute the n'th fibonacci number."""
+    return fib(n-1) + fib(n-2) if n > 2 else n
+
+  fib(40)
+#+end_src
+
+Now the code executes instantly.
+
+The =cache= decorator has unlimited cache size, which might lead to very high memory usage. So you might want to use the =lru_cache= decorator instead, and set the cache size according to your needs. /LRU/ stands for /least recently used/. Basically, when your cache is full and you need to add a new entry to it, you clear the least recently used cache item and put the new one in its place. You can read more about it [[https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)][here]].
+
+
+#+begin_src python
+  from functools import lru_cache
+
+  @lru_cache(maxsize = 10)
+  def fib(n: int) -> int:
+    """Compute the n'th fibonacci number."""
+    return fib(n-1) + fib(n-2) if n > 2 else n
+
+  fib(40)
+#+end_src
+
+Note: =cache= is just an alias for =lru_cache= with =maxsize = None=
+
+
+Earlier I was implementing caches by myself...
