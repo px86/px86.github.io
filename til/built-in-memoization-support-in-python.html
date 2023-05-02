@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2023-05-02 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Built-in memoization support in Python</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Pushkar Raj">
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/> 
+<link rel="stylesheet" type="text/css" href="/assets/css/style.css"/> 
+<link rel="stylesheet" type="text/css" href="/assets/css/fonts.css"/> 
+<script type="text/javascript" src="/assets/js/script.js" defer></script> 
+</head>
+<body>
+<header id="preamble" class="status">
+<div class="container">
+  <div class="user-info">
+    <img alt="Profile Picture" src="https://avatars.githubusercontent.com/u/86090336"/>
+    <a class="user-name" href="/">Pushkar Raj</a>
+    <div id="toggler"></div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/articles">All Articles</a></li>
+      <li><a href="/til">Today I Learnt</a></li>
+      <li><a href="https://github.com/px86">My Github</a></li>
+    </ul>
+  </nav>
+  <!-- Use CSS and JS to place this date below the post heading. -->
+  <div id="date"><span class="timestamp">2023-05-02</span></div>
+</div>
+</header>
+<main id="content">
+<header>
+<h1 class="title">Built-in memoization support in Python</h1>
+<p class="subtitle">the <code>cache</code> and <code>lru_cache</code> decorators</p>
+</header><p>
+In Python, the <code>functools</code> module provides two useful decorators, <code>cache</code> and <code>lru_cache</code>. As their names suggest, they are used to cache the results of function calls.
+</p>
+
+<p>
+For example, the following code takes a few seconds to compute the 40th <i>fibonacci</i> number (because of redundant recursive calls).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-keyword">def</span> <span class="org-function-name">fib</span>(n: <span class="org-builtin">int</span>) -&gt; <span class="org-builtin">int</span>:
+  <span class="org-doc">"""Compute the n'th fibonacci number."""</span>
+  <span class="org-keyword">return</span> fib(n-1) + fib(n-2) <span class="org-keyword">if</span> n &gt; 2 <span class="org-keyword">else</span> n
+
+fib(40)
+</pre>
+</div>
+
+
+<p>
+We can improve the performance by caching the results of the function calls. We just have to decorate the <code>fib</code> function with the <code>cache</code> decorator.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-keyword">from</span> functools <span class="org-keyword">import</span> cache
+
+<span class="org-type">@cache</span>
+<span class="org-keyword">def</span> <span class="org-function-name">fib</span>(n: <span class="org-builtin">int</span>) -&gt; <span class="org-builtin">int</span>:
+  <span class="org-doc">"""Compute the n'th fibonacci number."""</span>
+  <span class="org-keyword">return</span> fib(n-1) + fib(n-2) <span class="org-keyword">if</span> n &gt; 2 <span class="org-keyword">else</span> n
+
+fib(40)
+</pre>
+</div>
+
+<p>
+Now the code executes instantly.
+</p>
+
+<p>
+The <code>cache</code> decorator has unlimited cache size, which might lead to very high memory usage. So you might want to use the <code>lru_cache</code> decorator instead, and set the cache size according to your needs. <i>LRU</i> stands for <i>least recently used</i>. Basically, when your cache is full and you need to add a new entry to it, you clear the least recently used cache item and put the new one in its place. You can read more about it <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)">here</a>.
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-keyword">from</span> functools <span class="org-keyword">import</span> lru_cache
+
+<span class="org-type">@lru_cache</span>(maxsize = 10)
+<span class="org-keyword">def</span> <span class="org-function-name">fib</span>(n: <span class="org-builtin">int</span>) -&gt; <span class="org-builtin">int</span>:
+  <span class="org-doc">"""Compute the n'th fibonacci number."""</span>
+  <span class="org-keyword">return</span> fib(n-1) + fib(n-2) <span class="org-keyword">if</span> n &gt; 2 <span class="org-keyword">else</span> n
+
+fib(40)
+</pre>
+</div>
+
+<p>
+Note: <code>cache</code> is just an alias for <code>lru_cache</code> with <code>maxsize = None</code>
+</p>
+
+
+<p>
+Earlier I was implementing caches by myself&#x2026;
+</p>
+</main>
+<footer id="postamble" class="status">
+<p class="footer-block">
+  Copyright &copy 2021-2023 Pushkar Raj. Read the notice about <a href="/license.html">license terms</a>.
+</p>
+<p class="footer-block">
+  Created using <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.3)
+</p>
+</footer>
+</body>
+</html>
