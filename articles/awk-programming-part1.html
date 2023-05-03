@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-05-02 -->
+<!-- 2023-05-03 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AWK Programming - Part 1</title>
@@ -53,9 +53,9 @@ I came to know that on my <i>Debian 11 bullseye</i> system, the default installa
 Anyways let's get started.
 </p>
 
-<div id="outline-container-org3c64db9" class="outline-2">
-<h2 id="org3c64db9">Invoking awk</h2>
-<div class="outline-text-2" id="text-org3c64db9">
+<div id="outline-container-org67d8216" class="outline-2">
+<h2 id="org67d8216">Invoking awk</h2>
+<div class="outline-text-2" id="text-org67d8216">
 <p>
 The most common ways of calling <code>awk</code> is as follows:
 </p>
@@ -107,9 +107,9 @@ Notice the minus <code>-</code> in the list of file names. It means <code>stdin<
 </div>
 </div>
 
-<div id="outline-container-org3c3eed5" class="outline-2">
-<h2 id="org3c3eed5">Rules - pattern, action pairs</h2>
-<div class="outline-text-2" id="text-org3c3eed5">
+<div id="outline-container-orgb75207d" class="outline-2">
+<h2 id="orgb75207d">Rules - pattern, action pairs</h2>
+<div class="outline-text-2" id="text-orgb75207d">
 <p>
 <i>An awk program is a collection of one or more rules. Each rule consists of a pattern and an associated action.</i>
 </p>
@@ -161,9 +161,9 @@ The 1st and the 3rd line matched with the <i><i>apples</i></i> pattern, and henc
 </p>
 </div>
 
-<div id="outline-container-orgce59371" class="outline-3">
-<h3 id="orgce59371">The BEGIN and END special patterns</h3>
-<div class="outline-text-3" id="text-orgce59371">
+<div id="outline-container-orgd525d49" class="outline-3">
+<h3 id="orgd525d49">The BEGIN and END special patterns</h3>
+<div class="outline-text-3" id="text-orgd525d49">
 <p>
 The <code>BEGIN</code> and <code>END</code> are special patterns in awk. The action associated with the <code>BEGIN</code> pattern is executed before any of the input files are processed. Similarly, the action associated with the <code>END</code> pattern is executed when all the input files are processed.
 </p>
@@ -175,9 +175,9 @@ We will get back to this pattern-action pair concept soon. But let's learn about
 </div>
 </div>
 
-<div id="outline-container-org94b6e37" class="outline-2">
-<h2 id="org94b6e37">Records, fields, $0, $1, &#x2026; $NF</h2>
-<div class="outline-text-2" id="text-org94b6e37">
+<div id="outline-container-org28fa2f4" class="outline-2">
+<h2 id="org28fa2f4">Records, fields, $0, $1, &#x2026; $NF</h2>
+<div class="outline-text-2" id="text-org28fa2f4">
 <p>
 <i>Awk works on a file, one record at a time.</i>
 </p>
