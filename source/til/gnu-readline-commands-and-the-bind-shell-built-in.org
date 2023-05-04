@@ -1,0 +1,41 @@
+#+TITLE: GNU readline commands and the bind shell built-in
+#+SUBTITLE: becoming more efficient at the shell prompt
+#+AUTHOR: Pushkar Raj
+#+EMAIL: px86@protonmail.com
+#+DATE: [2023-05-04 Thu]
+
+I already knew that most shells use /GNU Readline/, or similar libraries for providing line editing capabilities. I also created a similar but much simpler and smaller, C++ library called [[https://github.com/px86/linereader][linereader]] last year (while I was in college).
+
+Today I learnt that readline has a large number of commands for text-editing, kill-ring management, completions, etc. and some of them are bound to keys. Very much like emacs. As a result we can customize the behavior by rebinding the keys and the commands as we like.
+
+Readline can be customized using a configuration file. The =INPUTRC= environment variable is read, to figure out where the configuration file is. If this variable is not set, then the default =~/.inputrc= is considered.
+
+* The =bind= bash built in
+
+The =bind= shell built-in can be use to set keybindings to readline functions. We can learn more about it using the =help bind= shell command.
+
+Some of the useful commands are:
+
++ =bind -l= lists all the readline functions
+
++ =bind -p= lists readline functions and bindings in a format that can be used as input in =~/.inputrc= file of to bind command itself
+
++ =bind 'keysequence: READLINE-FUNCTION'= this will bind the keysequence to given readline function
+
++ =bind -x 'keysequence: SHELL-COMMAND'= this is a really neat feature, wherein we can bind arbitrary shell commands (not just readline commands) to keys. e.g. running the below command will bind =C-n= to the =ls -al= shell command
+
+#+begin_src shell
+  bind -x '"\C-n": ls -al'
+#+end_src
+
+* The =menu-complete= readline command
+
+I have to use Windows for my work! 🥲 I hate it. However being used to the command-line way of doing things, I always end up using /powershell/ in windows. One thing I liked in /powershell/ is the completions behavior when I repeatedly press the =TAB=  key. It cycles through each possible completion and updates the current line, unlike (default) /bash/ where it prints all possible completions and moves the prompt below the printed lines. However, I came to know that there is a readline command called =menu-complete= which provides (almost! not sure) similar feature like /powershell/.
+
+Try it with the =bind 'Tab: menu-complete'= command or put =Tab: menu-complete= in your =~/.inputrc=
+
+
+* Resources
+
+- Arch linux readline man page: https://man.archlinux.org/man/readline.3
+- GNU readline library documentation: https://tiswww.cwru.edu/php/chet/readline/readline.html
