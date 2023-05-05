@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-05-04 -->
+<!-- 2023-05-05 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GNU readline commands and the bind shell built-in</title>
@@ -49,9 +49,9 @@ Today I learnt that readline has a large number of commands for text-editing, ki
 Readline can be customized using a configuration file. The <code>INPUTRC</code> environment variable is read, to figure out where the configuration file is. If this variable is not set, then the default <code>~/.inputrc</code> is considered.
 </p>
 
-<div id="outline-container-org4d52db2" class="outline-2">
-<h2 id="org4d52db2">The <code>bind</code> bash built in</h2>
-<div class="outline-text-2" id="text-org4d52db2">
+<div id="outline-container-org7e8d1dc" class="outline-2">
+<h2 id="org7e8d1dc">The <code>bind</code> bash built in</h2>
+<div class="outline-text-2" id="text-org7e8d1dc">
 <p>
 The <code>bind</code> shell built-in can be use to set keybindings to readline functions. We can learn more about it using the <code>help bind</code> shell command.
 </p>
@@ -77,9 +77,9 @@ Some of the useful commands are:
 </div>
 </div>
 
-<div id="outline-container-org6635bd5" class="outline-2">
-<h2 id="org6635bd5">The <code>menu-complete</code> readline command</h2>
-<div class="outline-text-2" id="text-org6635bd5">
+<div id="outline-container-org74363c0" class="outline-2">
+<h2 id="org74363c0">The <code>menu-complete</code> readline command</h2>
+<div class="outline-text-2" id="text-org74363c0">
 <p>
 I have to use Windows for my work! 🥲 I hate it. However being used to the command-line way of doing things, I always end up using <i>powershell</i> in windows. One thing I liked in <i>powershell</i> is the completions behavior when I repeatedly press the <code>TAB</code>  key. It cycles through each possible completion and updates the current line, unlike (default) <i>bash</i> where it prints all possible completions and moves the prompt below the printed lines. However, I came to know that there is a readline command called <code>menu-complete</code> which provides (almost! not sure) similar feature like <i>powershell</i>.
 </p>
@@ -91,9 +91,9 @@ Try it with the <code>bind 'Tab: menu-complete'</code> command or put <code>Tab:
 </div>
 
 
-<div id="outline-container-org98a0ea6" class="outline-2">
-<h2 id="org98a0ea6">Resources</h2>
-<div class="outline-text-2" id="text-org98a0ea6">
+<div id="outline-container-orgfa62624" class="outline-2">
+<h2 id="orgfa62624">Resources</h2>
+<div class="outline-text-2" id="text-orgfa62624">
 <ul class="org-ul">
 <li>Arch linux readline man page: <a href="https://man.archlinux.org/man/readline.3">https://man.archlinux.org/man/readline.3</a></li>
 <li>GNU readline library documentation: <a href="https://tiswww.cwru.edu/php/chet/readline/readline.html">https://tiswww.cwru.edu/php/chet/readline/readline.html</a></li>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2023-05-05 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GNU Readline Cheat Sheet</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Pushkar Raj">
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/> 
+<link rel="stylesheet" type="text/css" href="/assets/css/style.css"/> 
+<link rel="stylesheet" type="text/css" href="/assets/css/fonts.css"/> 
+<script type="text/javascript" src="/assets/js/script.js" defer></script> 
+</head>
+<body>
+<header id="preamble" class="status">
+<div class="container">
+  <div class="user-info">
+    <img alt="Profile Picture" src="https://avatars.githubusercontent.com/u/86090336"/>
+    <a class="user-name" href="/">Pushkar Raj</a>
+    <div id="toggler"></div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/articles">All Articles</a></li>
+      <li><a href="/til">Today I Learnt</a></li>
+      <li><a href="https://github.com/px86">My Github</a></li>
+    </ul>
+  </nav>
+  <!-- Use CSS and JS to place this date below the post heading. -->
+  <div id="date"><span class="timestamp">2023-05-05</span></div>
+</div>
+</header>
+<main id="content">
+<header>
+<h1 class="title">GNU Readline Cheat Sheet</h1>
+<p class="subtitle">a collection of most useful readline keybindings</p>
+</header><p>
+Shells like <code>bash</code> use <code>GNU Readline</code> for providing line editing capability. It's important to know the basic keybindings to be effective in the command shell.
+</p>
+
+<div id="outline-container-orgba7790b" class="outline-2">
+<h2 id="orgba7790b">Notation</h2>
+<div class="outline-text-2" id="text-orgba7790b">
+<ul class="org-ul">
+<li><code>C-y</code> means Control + y</li>
+<li><code>M-x</code> means Meta + x, Meta is usually bound to the Alt key.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9a56393" class="outline-2">
+<h2 id="org9a56393">Must know keybindings</h2>
+<div class="outline-text-2" id="text-org9a56393">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Sequence</th>
+<th scope="col" class="org-left">Command Name</th>
+<th scope="col" class="org-left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">C-a</td>
+<td class="org-left">beginning-of-line</td>
+<td class="org-left">move the cursor to the beginning of the line</td>
+</tr>
+
+<tr>
+<td class="org-left">C-e</td>
+<td class="org-left">end-of-line</td>
+<td class="org-left">move the cursor to the end of the line</td>
+</tr>
+
+<tr>
+<td class="org-left">C-f</td>
+<td class="org-left">forward-char</td>
+<td class="org-left">move the cursor one character to the right</td>
+</tr>
+
+<tr>
+<td class="org-left">C-b</td>
+<td class="org-left">backward-char</td>
+<td class="org-left">move the cursor one character to the left</td>
+</tr>
+
+<tr>
+<td class="org-left">C-d</td>
+<td class="org-left">delete-char</td>
+<td class="org-left">delete character under the cursor</td>
+</tr>
+
+<tr>
+<td class="org-left">M-f</td>
+<td class="org-left">forward-word</td>
+<td class="org-left">move the cursor one word to the right</td>
+</tr>
+
+<tr>
+<td class="org-left">M-b</td>
+<td class="org-left">backward-word</td>
+<td class="org-left">move the cursor one word to the right</td>
+</tr>
+
+<tr>
+<td class="org-left">M-d</td>
+<td class="org-left">kill-word</td>
+<td class="org-left">kill word to the right</td>
+</tr>
+
+<tr>
+<td class="org-left">C-w</td>
+<td class="org-left">unix-word-rubout</td>
+<td class="org-left">kill word to the left</td>
+</tr>
+
+<tr>
+<td class="org-left">C-k</td>
+<td class="org-left">kill-line</td>
+<td class="org-left">kill line from the cursor to the end of line</td>
+</tr>
+
+<tr>
+<td class="org-left">C-u</td>
+<td class="org-left">unix-line-discard</td>
+<td class="org-left">kill line from the cursor to the beginning</td>
+</tr>
+
+<tr>
+<td class="org-left">C-y</td>
+<td class="org-left">yank</td>
+<td class="org-left">paste the top of the kill-ring</td>
+</tr>
+
+<tr>
+<td class="org-left">M-y</td>
+<td class="org-left">yank-pop</td>
+<td class="org-left">roatate and yank the top of kill-ring (after yank)</td>
+</tr>
+
+<tr>
+<td class="org-left">M-u</td>
+<td class="org-left">upcase-word</td>
+<td class="org-left">upcase word</td>
+</tr>
+
+<tr>
+<td class="org-left">M-l</td>
+<td class="org-left">downcase-word</td>
+<td class="org-left">downcase word</td>
+</tr>
+
+<tr>
+<td class="org-left">M-c</td>
+<td class="org-left">capitalize-word</td>
+<td class="org-left">capitalize word</td>
+</tr>
+
+<tr>
+<td class="org-left">M-.</td>
+<td class="org-left">yank-last-arg</td>
+<td class="org-left">yank last argument of previous command (repeatedly)</td>
+</tr>
+
+<tr>
+<td class="org-left">C-r</td>
+<td class="org-left">reverse-search-history</td>
+<td class="org-left">search for a command in history anti-chronologically</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org388aa5f" class="outline-2">
+<h2 id="org388aa5f">Other useful keybindings</h2>
+<div class="outline-text-2" id="text-org388aa5f">
+</div>
+<div id="outline-container-org9a98a83" class="outline-3">
+<h3 id="org9a98a83"><code>M-C-y</code> yank-nth-arg</h3>
+<div class="outline-text-3" id="text-org9a98a83">
+<p>
+This command yanks the first argument of the previous command(s). You can pass an argument, let's say 3, with the key-sequence <code>M-3 M-C-y</code>, to extract the 3rd argument of the previous command.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5fab6ba" class="outline-3">
+<h3 id="org5fab6ba"><code>C-x C-e</code> edit-and-execute-command</h3>
+<div class="outline-text-3" id="text-org5fab6ba">
+<p>
+Edit current command in <code>EDITOR</code> and execute it.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7e75de3" class="outline-3">
+<h3 id="org7e75de3"><code>C-x C-u</code> undo</h3>
+<div class="outline-text-3" id="text-org7e75de3">
+<p>
+Undo you line edits.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb25e827" class="outline-3">
+<h3 id="orgb25e827"><code>M-r</code> revert-line</h3>
+<div class="outline-text-3" id="text-orgb25e827">
+<p>
+Discard any edits made and restore the history line.
+</p>
+</div>
+</div>
+</div>
+</main>
+<footer id="postamble" class="status">
+<p class="footer-block">
+  Copyright &copy 2021-2023 Pushkar Raj. Read the notice about <a href="/license.html">license terms</a>.
+</p>
+<p class="footer-block">
+  Created using <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.3)
+</p>
+</footer>
+</body>
+</html>
