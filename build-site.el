@@ -28,29 +28,15 @@
 ;; Set the project publish configuration
 (setq org-publish-project-alist
       (list
-       (list "articles"
+       (list "blog"
              :recursive t
-             :base-directory "./source/articles"
-             :publishing-directory "./build/articles"
+             :base-directory "./source/blog"
+             :publishing-directory "./build/blog"
              :publishing-function 'org-html-publish-to-html
              :with-creator t
              :with-toc nil
              :auto-sitemap t
-             :sitemap-title "All Articles"
-             :sitemap-filename "index.org"
-             :sitemap-style 'list
-             :sitemap-format-entry #'my-sitemap-date-title-entry-format
-             :sitemap-sort-files 'anti-chronologically
-             :section-numbers nil)
-       (list "til"
-             :recursive t
-             :base-directory "./source/til"
-             :publishing-directory "./build/til"
-             :publishing-function 'org-html-publish-to-html
-             :with-creator t
-             :with-toc nil
-             :auto-sitemap t
-             :sitemap-title "Today I Learnt"
+             :sitemap-title "Blog posts"
              :sitemap-filename "index.org"
              :sitemap-style 'list
              :sitemap-format-entry #'my-sitemap-date-title-entry-format

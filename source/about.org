@@ -7,15 +7,14 @@ Hi there, I'm Pushkar Raj. I am from India. It's nice to meet you!
 
 * My setup
 
-- Distribution: /Debian 11 bullseye/
+- Distribution: /Debian 12 bookworm/
 
   I began using GNU/Linux in 2019. I tried /Ubuntu/, /Linux Mint/ (liked it better than Ubuntu), and in 2020, moved to /Arch Linux/ (a rolling-release distro). It was a great learning experience, but frequent breakage during updates made me realize that I don't need the latest and the greatest software. I needed something with rock-solid stability. So, in 2021 I finally shifted to Debian with the release of /Debian 11 bullseye/. I am really happy with my decision.
 
 - Window manager: /Qtile/
 
-  I have used desktop environments like Gnome, Cinnamon, xfce, and kde (really liked it) in the past. However, I wanted something minimal, and more cutomizable. I experimented with tiling window managers like =dwm= and =awesomewm=. Finally, I settled for =qtile=, as it is feature rich, and is configured in python, something that I am comfortable with. I configured it, somewhere around July 2021 and since then, I have barely needed to touch it.
+  I have used desktop environments like Gnome, Cinnamon, Xfce, and KDE (really liked it) in the past. However, I wanted something minimal, and more cutomizable. I experimented with tiling window managers like =dwm= and =awesomewm=. Finally, I settled for =Qtile=, as it is feature rich, and is configured in python, something that I am comfortable with. I have been using Qtile since 2021.
 
 - Text editor: /Emacs/
 
-  Soon after I started using GNU/Linux, I started learning /vim/. I came to know about /emacs/ in 2020 and started using it from 2021. Initially I was using /evil mode/ to emulate the vim keybindings in /emacs/ but gradually learnt the /emacs/ key bindings.
-  I think the time and effort I have put into learning and using /GNU/Linux/ and /Emacs/, are one of my best investments ever. I still have a ton to learn though.
+  I love emacs.

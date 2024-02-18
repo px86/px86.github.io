@@ -3,10 +3,6 @@
 #+DESCRIPTION: Homepage of Pushkar Raj's website.
 #+OPTIONS: toc:nil
 
-* Recent Articles
+* Recent blog posts
 
-#+INCLUDE: articles/index.org :lines "3-14"
-
-* Today I Learnt
-
-#+INCLUDE: til/index.org :lines "3-8"
+#+INCLUDE: blog/index.org :lines "3-20"

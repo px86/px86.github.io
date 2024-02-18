@@ -113,13 +113,14 @@ body {
 #preamble nav li a {
     display: block;
     width: 100%;
-    color: rgba(255, 255, 255, 0.9);
+    color: #ffffff;
     text-shadow: 2px black;
     font-weight: bolder;
 }
 
 #preamble nav li a:hover {
     background: var(--fg-blue);
+    color: black;
 }
 
 #toggler {
