@@ -1,0 +1,8 @@
+#+TITLE: Hello World
+#+SUBTITLE: Testing my setup
+#+AUTHOR: Pushkar Raj
+#+EMAIL: px86@protonmail.com
+#+DATE: [2022-09-04 Sun]
+
+Hello, world!
+Just making sure that my org-mode based publishing setup works correctly or not.

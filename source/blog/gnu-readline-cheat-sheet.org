@@ -1,0 +1,53 @@
+#+TITLE: GNU Readline Cheat Sheet
+#+SUBTITLE: a collection of most useful readline keybindings
+#+AUTHOR: Pushkar Raj
+#+EMAIL: px86@protonmail.com
+#+DATE: [2023-05-05 Fri]
+
+Shells like =bash= use =GNU Readline= for providing line editing capability. It's important to know the basic keybindings to be effective in the command shell.
+
+* Notation
+
+- =C-y= means Control + y
+- =M-x= means Meta + x, Meta is usually bound to the Alt key.
+
+* Must know keybindings
+
+| Key Sequence | Command Name           | Explanation                                          |
+|--------------+------------------------+------------------------------------------------------|
+| C-a          | beginning-of-line      | move the cursor to the beginning of the line         |
+| C-e          | end-of-line            | move the cursor to the end of the line               |
+| C-f          | forward-char           | move the cursor one character to the right           |
+| C-b          | backward-char          | move the cursor one character to the left            |
+| C-d          | delete-char            | delete character under the cursor                    |
+| M-f          | forward-word           | move the cursor one word to the right                |
+| M-b          | backward-word          | move the cursor one word to the right                |
+| M-d          | kill-word              | kill word to the right                               |
+| C-w          | unix-word-rubout       | kill word to the left                                |
+| C-k          | kill-line              | kill line from the cursor to the end of line         |
+| C-u          | unix-line-discard      | kill line from the cursor to the beginning           |
+| C-y          | yank                   | paste the top of the kill-ring                       |
+| M-y          | yank-pop               | roatate and yank the top of kill-ring (after yank)   |
+| M-u          | upcase-word            | upcase word                                          |
+| M-l          | downcase-word          | downcase word                                        |
+| M-c          | capitalize-word        | capitalize word                                      |
+| M-.          | yank-last-arg          | yank last argument of previous command (repeatedly)  |
+| C-r          | reverse-search-history | search for a command in history anti-chronologically |
+
+* Other useful keybindings
+
+** =M-C-y= yank-nth-arg
+
+This command yanks the first argument of the previous command(s). You can pass an argument, let's say 3, with the key-sequence =M-3 M-C-y=, to extract the 3rd argument of the previous command.
+
+** =C-x C-e= edit-and-execute-command
+
+Edit current command in =EDITOR= and execute it.
+
+** =C-x C-u= undo
+
+Undo you line edits.
+
+** =M-r= revert-line
+
+Discard any edits made and restore the history line.
