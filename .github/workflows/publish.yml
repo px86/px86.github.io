@@ -15,11 +15,11 @@ jobs:
       - name: Check out
         uses: actions/checkout@v1
 
-      - name: Install Emacs and Make
-        run: sudo apt install emacs-nox make --yes
+      - name: Install Emacs and Python
+        run: sudo apt install emacs-nox python3 --yes
 
       - name: Build the site
-        run: make site
+        run: python3 make.py --build
 
       - name: Publish generated content to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
