@@ -171,12 +171,7 @@ body {
     #toggler {
         display: unset;
     }
-}
 
-@media all and (max-width: 550px) {
-    .org-ul li span.timestamp {
-        display: block;
-    }
 }
 
 #content {
@@ -196,6 +191,20 @@ body {
     max-width: var(--max-width);
     padding: var(--content-padding);
     text-align: center;
+}
+
+@media all and (max-width: 550px) {
+    .org-ul li span.timestamp {
+        display: block;
+    }
+
+    #content {
+	padding: 1em;
+    }
+
+    #postamble {
+	padding: 1em;
+    }
 }
 
 h1,
