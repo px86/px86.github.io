@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-05-05 -->
+<!-- 2024-02-18 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AWK Programming - Part 1</title>
@@ -24,9 +24,8 @@
     <ul>
       <li><a href="/about.html">About</a></li>
       <li><a href="/contact.html">Contact</a></li>
-      <li><a href="/articles">All Articles</a></li>
-      <li><a href="/til">Today I Learnt</a></li>
-      <li><a href="https://github.com/px86">My Github</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="https://github.com/px86">Github</a></li>
     </ul>
   </nav>
   <!-- Use CSS and JS to place this date below the post heading. -->
@@ -53,9 +52,9 @@ I came to know that on my <i>Debian 11 bullseye</i> system, the default installa
 Anyways let's get started.
 </p>
 
-<div id="outline-container-orgd8dec92" class="outline-2">
-<h2 id="orgd8dec92">Invoking awk</h2>
-<div class="outline-text-2" id="text-orgd8dec92">
+<div id="outline-container-org62e1be7" class="outline-2">
+<h2 id="org62e1be7">Invoking awk</h2>
+<div class="outline-text-2" id="text-org62e1be7">
 <p>
 The most common ways of calling <code>awk</code> is as follows:
 </p>
@@ -107,9 +106,9 @@ Notice the minus <code>-</code> in the list of file names. It means <code>stdin<
 </div>
 </div>
 
-<div id="outline-container-org4cabb4c" class="outline-2">
-<h2 id="org4cabb4c">Rules - pattern, action pairs</h2>
-<div class="outline-text-2" id="text-org4cabb4c">
+<div id="outline-container-org86b4701" class="outline-2">
+<h2 id="org86b4701">Rules - pattern, action pairs</h2>
+<div class="outline-text-2" id="text-org86b4701">
 <p>
 <i>An awk program is a collection of one or more rules. Each rule consists of a pattern and an associated action.</i>
 </p>
@@ -161,9 +160,9 @@ The 1st and the 3rd line matched with the <i><i>apples</i></i> pattern, and henc
 </p>
 </div>
 
-<div id="outline-container-org217d95a" class="outline-3">
-<h3 id="org217d95a">The BEGIN and END special patterns</h3>
-<div class="outline-text-3" id="text-org217d95a">
+<div id="outline-container-orgf3be433" class="outline-3">
+<h3 id="orgf3be433">The BEGIN and END special patterns</h3>
+<div class="outline-text-3" id="text-orgf3be433">
 <p>
 The <code>BEGIN</code> and <code>END</code> are special patterns in awk. The action associated with the <code>BEGIN</code> pattern is executed before any of the input files are processed. Similarly, the action associated with the <code>END</code> pattern is executed when all the input files are processed.
 </p>
@@ -175,9 +174,9 @@ We will get back to this pattern-action pair concept soon. But let's learn about
 </div>
 </div>
 
-<div id="outline-container-org431cd27" class="outline-2">
-<h2 id="org431cd27">Records, fields, $0, $1, &#x2026; $NF</h2>
-<div class="outline-text-2" id="text-org431cd27">
+<div id="outline-container-org8148dc7" class="outline-2">
+<h2 id="org8148dc7">Records, fields, $0, $1, &#x2026; $NF</h2>
+<div class="outline-text-2" id="text-org8148dc7">
 <p>
 <i>Awk works on a file, one record at a time.</i>
 </p>
@@ -207,7 +206,7 @@ In a record, <code>$1</code> refers to the first field, <code>$2</code> to the s
 </main>
 <footer id="postamble" class="status">
 <p class="footer-block">
-  Copyright &copy 2021-2023 Pushkar Raj. Read the notice about <a href="/license.html">license terms</a>.
+  Copyright &copy 2021-2024 Pushkar Raj. Read the notice about <a href="/license.html">license terms</a>.
 </p>
 <p class="footer-block">
   Created using <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.3)

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-05-05 -->
+<!-- 2024-02-18 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Encrypt Files with OpenSSL</title>
@@ -24,9 +24,8 @@
     <ul>
       <li><a href="/about.html">About</a></li>
       <li><a href="/contact.html">Contact</a></li>
-      <li><a href="/articles">All Articles</a></li>
-      <li><a href="/til">Today I Learnt</a></li>
-      <li><a href="https://github.com/px86">My Github</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="https://github.com/px86">Github</a></li>
     </ul>
   </nav>
   <!-- Use CSS and JS to place this date below the post heading. -->
@@ -45,9 +44,9 @@
 Let's get started!
 </p>
 
-<div id="outline-container-orgc578973" class="outline-2">
-<h2 id="orgc578973">Setup</h2>
-<div class="outline-text-2" id="text-orgc578973">
+<div id="outline-container-org3f7394f" class="outline-2">
+<h2 id="org3f7394f">Setup</h2>
+<div class="outline-text-2" id="text-org3f7394f">
 <p>
 Most probably, the openssl tool would already be installed on your system. You can verify this by running the following command in your shell,
 </p>
@@ -86,9 +85,9 @@ For the demonstration purpose, let's create a dummy file called <code>secret.txt
 </div>
 </div>
 
-<div id="outline-container-org9d792aa" class="outline-2">
-<h2 id="org9d792aa">Encryption</h2>
-<div class="outline-text-2" id="text-org9d792aa">
+<div id="outline-container-orgcbadc75" class="outline-2">
+<h2 id="orgcbadc75">Encryption</h2>
+<div class="outline-text-2" id="text-orgcbadc75">
 <p>
 We will be using the <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES 256</a> encryption algorithm to encrypt the file. AES is a symmetric-key encryption algorithm, which means that the same key is used to encrypt as well as decrypt the data. The length of the key can be 128, 192 or 256 bits. We would be using a 256 bit key, hence the algorithm is called <code>AES-256</code>.
 </p>
@@ -188,9 +187,9 @@ We will remove the <code>secret.txt</code> file, which contains our secret messa
 </div>
 </div>
 
-<div id="outline-container-orgddea0b6" class="outline-2">
-<h2 id="orgddea0b6">Decryption</h2>
-<div class="outline-text-2" id="text-orgddea0b6">
+<div id="outline-container-org9b648e0" class="outline-2">
+<h2 id="org9b648e0">Decryption</h2>
+<div class="outline-text-2" id="text-org9b648e0">
 <p>
 The command for decrypting a file is almost same, except here we use the <code>-d</code> flag (d for decryption), instead of <code>-e</code> (e for encryption), and the input-output files change accordingly.
 </p>
@@ -206,9 +205,9 @@ This will ask for the passphrase. After entering the correct passphrase, a plain
 </div>
 </div>
 
-<div id="outline-container-org7cbb899" class="outline-2">
-<h2 id="org7cbb899">Note</h2>
-<div class="outline-text-2" id="text-org7cbb899">
+<div id="outline-container-org0073744" class="outline-2">
+<h2 id="org0073744">Note</h2>
+<div class="outline-text-2" id="text-org0073744">
 <p>
 This method is used to encrypt one file at a time. If you want to encrypt multiple files in one go, then make a tarball of all the files, and then encrypt the tarball with this method.
 </p>
@@ -217,7 +216,7 @@ This method is used to encrypt one file at a time. If you want to encrypt multip
 </main>
 <footer id="postamble" class="status">
 <p class="footer-block">
-  Copyright &copy 2021-2023 Pushkar Raj. Read the notice about <a href="/license.html">license terms</a>.
+  Copyright &copy 2021-2024 Pushkar Raj. Read the notice about <a href="/license.html">license terms</a>.
 </p>
 <p class="footer-block">
   Created using <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.3)
