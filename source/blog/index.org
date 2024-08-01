@@ -1,5 +1,7 @@
 #+TITLE: Blog posts
 
+- {{{timestamp(2024-08-01)}}} [[file:the-private-access-modifier-in-java.org][The private access modifier in Java]]
+- {{{timestamp(2024-03-27)}}} [[file:find-and-delete-duplicate-files-using-go.org][Find and delete duplicate files using go!]]
 - {{{timestamp(2023-05-05)}}} [[file:gnu-readline-cheat-sheet.org][GNU Readline Cheat Sheet]]
 - {{{timestamp(2023-04-15)}}} [[file:awk-programming-part1.org][AWK Programming - Part 1]]
 - {{{timestamp(2022-09-04)}}} [[file:encrypt-files-with-openssl.org][Encrypt Files with OpenSSL]]

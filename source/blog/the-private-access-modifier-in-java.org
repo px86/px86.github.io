@@ -1,0 +1,58 @@
+#+TITLE: The private access modifier in Java
+#+SUBTITLE:
+#+AUTHOR: Pushkar Raj
+#+EMAIL: px86@protonmail.com
+#+DATE: [2024-08-01 Thu]
+
+What does the =private= access modifier do in Java?
+I used to believe that a member or constructor declared =private= is only accessible in the same class that defines it. However, this simple definition fails in the case of nested classes.
+
+/As per java language specification, any member or constructor that is declared as =private=, is accessible within the body of the top level class or interface./
+
+Let's try to understand this with an example.
+
+#+begin_src java
+  public class TopLevel {
+
+    static class NestedClass {
+      private String secretMessage = "Secret message from the NestedClass";
+    }
+
+    public static void main(String[] args) {
+      NestedClass nc = new NestedClass();
+      System.out.println(nc.secretMessage); // Secret message from the NestedClass
+    }
+  }
+#+end_src
+
+
+The above program when compiled and run, prints "Secret message from the NestedClass". Even if the =secretMessage= field is declared as =private= inside the =NestedClass=, it is still accessible from the =main= method.
+
+
+Let's look at another example, where another nested class (=NestedClass2=) is accessing the =private= field of =NestedClass=.
+
+#+begin_src java
+  public class TopLevel {
+
+    static class NestedClass {
+      private String secretMessage = "Secret message from the NestedClass";
+    }
+
+    static class NestedClass2 {
+      // even NestestedClass2 can access the private field of NestedClass
+      public void displaySecretMessage() {
+        NestedClass nc = new NestedClass();
+        System.out.println(nc.secretMessage);
+      }
+    }
+
+    public static void main(String[] args) {
+      NestedClass2 nc2 = new NestedClass2();
+      nc2.displaySecretMessage();  // Secret message from the NestedClass
+    }
+  }
+#+end_src
+
+** Resources
+
+- Java Language Specification SE 22 - https://docs.oracle.com/javase/specs/jls/se22/html/jls-6.html#jls-6.6
