@@ -1,0 +1,180 @@
+#+TITLE: Excel Add-on for querying Active Directory
+#+SUBTITLE:
+#+AUTHOR: Pushkar Raj
+#+EMAIL: px86@protonmail.com
+#+DATE: [2024-08-29 Thu]
+
+Below are some utility VBA functions that query user information from active directory. These can be added to an =.xla= file, and loaded as an Excel add-on. This will provide excel functions like =ADUserProperty=, =managerOf=, =emailOf= etc. The only down side is that each function call is a blocking network operation, so flash-filling them for large number of rows might cause excel to freeze for some time.
+
+
+#+begin_src basic
+  Option Explicit
+
+  Public Function getADDomain() As String
+      Dim objLdap As Object
+      Dim strLdapDomain As String
+
+      On Error Resume Next
+      Set objLdap = GetObject("LDAP://rootDSE")
+      On Error GoTo 0
+
+      If (objLdap Is Nothing) Then
+          Exit Function
+      End If
+
+      strLdapDomain = objLdap.Get("defaultNamingContext")
+
+      If (Trim(strLdapDomain) = "") Then
+          Exit Function
+      Else
+      getADDomain = strLdapDomain
+      End If
+  End Function
+
+
+  Public Function ADUserProperty(ByVal strUserId As String, ByVal adField As String, Optional ByVal domainStr As String = "DEFAULT_DOMAIN") As String
+
+      Dim objLdapConnection As Object
+      Dim objLdapCommand As Object
+      Dim objLdapRecordSet As Object
+
+      Dim objField As Variant
+
+      ' Connect to ActiveDirectory using ADODB
+      Set objLdapConnection = CreateObject("ADODB.Connection")
+      Call objLdapConnection.Open("Provider=ADsDSOObject;")
+
+      ' Create command to queryActiveDirectory using LDAP
+      Set objLdapCommand = CreateObject("ADODB.Command")
+
+      ' Set the query properties
+      With objLdapCommand
+          ' Set the connection
+          .ActiveConnection = objLdapConnection
+
+          ' Search the AD recursively, starting at the root of the domain
+          .CommandText = "<LDAP://" & Trim(domainStr) & ">;" & _
+            "(&(objectCategory=User)" & _
+            "(|(sAMAccountName=" & Trim(strUserId) & ")" & _
+            "(distinguishedName=" & Trim(strUserId) & ")" & _
+            "(displayName=" & Trim(strUserId) & ")" & _
+            "(cn=" & Trim(strUserId) & ")" & _
+            "(mail=" & Trim(strUserId) & ")));" & _
+            Trim(adField) & ";subtree"
+      End With
+
+      ' Execute LDAP query
+      Set objLdapRecordSet = objLdapCommand.Execute
+
+      If (objLdapRecordSet.BOF Or objLdapRecordSet.EOF) Then
+          ADUserProperty = "0"
+          Exit Function
+      Else
+          ' Walk through all users
+          Do While (Not objLdapRecordSet.EOF)
+
+              objField = objLdapRecordSet.Fields(Trim(adField))
+
+              If (Trim(adField) = "description") Then
+               ADUserProperty = Join(VariantArrayToStringArray(objField))
+              ElseIf (objField <> vbNull) Then
+                 ADUserProperty = objField
+              End If
+               ' Next record
+               Call objLdapRecordSet.MoveNext
+           Loop
+
+           If (Not objLdapRecordSet Is Nothing) Then
+              Call objLdapRecordSet.Close
+              Set objLdapRecordSet = Nothing
+           End If
+      End If
+      Set objLdapCommand = Nothing
+  End Function
+
+  Public Function managerOf(ByVal strUserId As String, Optional ByVal domainStr As String = "DEFAULT_DOMAIN") As String
+      Dim managerDN As String
+
+      managerDN = ADUserProperty(strUserId, "manager", domainStr)
+      If (managerDN = "0") Then
+          managerOf = "0"
+      Else
+          managerOf = ADUserProperty(managerDN, "cn", domainStr)
+      End If
+  End Function
+
+  Public Function managerEmailOf(ByVal strUserId As String, Optional ByVal domainStr As String = "DEFAULT_DOMAIN") As String
+      Dim managerDN As String
+
+      managerDN = ADUserProperty(strUserId, "manager", domainStr)
+      If (managerDN = "0") Then
+          managerEmailOf = "0"
+      Else
+          managerEmailOf = ADUserProperty(managerDN, "mail", domainStr)
+      End If
+  End Function
+
+  Public Function emailOf(ByVal strUserId As String, Optional ByVal domainStr As String = "DEFAULT_DOMAIN") As String
+          emailOf = ADUserProperty(strUserId, "mail", domainStr)
+  End Function
+
+  Public Function descriptionOf(ByVal strUserId As String, Optional ByVal domainStr As String = "DEFAULT_DOMAIN") As String
+          descriptionOf = ADUserProperty(strUserId, "description", domainStr)
+  End Function
+
+
+  ' Array Variant to String
+  Public Function VariantArrayToStringArray(ByVal arrVariants As Variant) As String()
+      Dim arrStrings() As String
+      ' Get the string array
+      Call ParamArrayToStringArray(arrVariants, arrStrings)
+      ' Get the string array
+      VariantArrayToStringArray = arrStrings
+  End Function
+
+  ' Array Variant to String
+  Public Sub ParamArrayToStringArray(ByVal arrVariants As Variant, ByRef arrStrings() As String)
+      Dim intLength As Integer
+      ' Handle the array
+      Call ParamArrayToStringArrayInternal(arrVariants, arrStrings, intLength)
+  End Sub
+
+
+  ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
+  ' Array Variant to String
+  Private Sub ParamArrayToStringArrayInternal(ByVal arrVariants As Variant, ByRef arrStrings() As String, ByRef intLength As Integer)
+      ' Parameter is array?
+      If (IsArray(arrVariants)) Then
+          Dim i As Integer
+          Dim objValue As Variant
+          ' Walk through the specified partner objects
+          For i = LBound(arrVariants) To UBound(arrVariants) Step 1
+              ' Get the value
+              objValue = arrVariants(i)
+              ' Array to string
+              Call ParamArrayToStringArrayInternal(objValue, arrStrings, intLength)
+          Next
+      Else
+          ' Next item
+          intLength = intLength + 1
+          ' Expand array
+          ReDim Preserve arrStrings(1 To intLength)
+
+          ' Set the value
+          arrStrings(intLength) = CStr(arrVariants)
+      End If
+  End Sub
+
+  ' String Array
+  ' Convert ParamArray to String array
+  Public Function StringArray(ParamArray arrValues() As Variant) As String()
+      ' Get the string array
+      StringArray = VariantArrayToStringArray(arrValues)
+  End Function
+
+#+end_src
