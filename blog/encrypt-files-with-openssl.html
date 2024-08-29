@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-08-01 -->
+<!-- 2024-08-29 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Encrypt Files with OpenSSL</title>
@@ -44,9 +44,9 @@
 Let's get started!
 </p>
 
-<div id="outline-container-org18d05b5" class="outline-2">
-<h2 id="org18d05b5">Setup</h2>
-<div class="outline-text-2" id="text-org18d05b5">
+<div id="outline-container-orgf2014cb" class="outline-2">
+<h2 id="orgf2014cb">Setup</h2>
+<div class="outline-text-2" id="text-orgf2014cb">
 <p>
 Most probably, the openssl tool would already be installed on your system. You can verify this by running the following command in your shell,
 </p>
@@ -85,9 +85,9 @@ For the demonstration purpose, let's create a dummy file called <code>secret.txt
 </div>
 </div>
 
-<div id="outline-container-org90c3969" class="outline-2">
-<h2 id="org90c3969">Encryption</h2>
-<div class="outline-text-2" id="text-org90c3969">
+<div id="outline-container-org36310fa" class="outline-2">
+<h2 id="org36310fa">Encryption</h2>
+<div class="outline-text-2" id="text-org36310fa">
 <p>
 We will be using the <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES 256</a> encryption algorithm to encrypt the file. AES is a symmetric-key encryption algorithm, which means that the same key is used to encrypt as well as decrypt the data. The length of the key can be 128, 192 or 256 bits. We would be using a 256 bit key, hence the algorithm is called <code>AES-256</code>.
 </p>
@@ -187,9 +187,9 @@ We will remove the <code>secret.txt</code> file, which contains our secret messa
 </div>
 </div>
 
-<div id="outline-container-orgb411070" class="outline-2">
-<h2 id="orgb411070">Decryption</h2>
-<div class="outline-text-2" id="text-orgb411070">
+<div id="outline-container-org4aed757" class="outline-2">
+<h2 id="org4aed757">Decryption</h2>
+<div class="outline-text-2" id="text-org4aed757">
 <p>
 The command for decrypting a file is almost same, except here we use the <code>-d</code> flag (d for decryption), instead of <code>-e</code> (e for encryption), and the input-output files change accordingly.
 </p>
@@ -205,9 +205,9 @@ This will ask for the passphrase. After entering the correct passphrase, a plain
 </div>
 </div>
 
-<div id="outline-container-org058c393" class="outline-2">
-<h2 id="org058c393">Note</h2>
-<div class="outline-text-2" id="text-org058c393">
+<div id="outline-container-org0af9219" class="outline-2">
+<h2 id="org0af9219">Note</h2>
+<div class="outline-text-2" id="text-org0af9219">
 <p>
 This method is used to encrypt one file at a time. If you want to encrypt multiple files in one go, then make a tarball of all the files, and then encrypt the tarball with this method.
 </p>
