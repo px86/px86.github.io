@@ -6,7 +6,7 @@
 
     --font-serif: 'Noto Serif', serif;
     --font-sans-serif: 'Source Sans Pro', sans-serif;
-    --font-monospace: 'Cascadia Mono', monospace;
+    --font-monospace: 'Cascadia Code', monospace;
 
     --bg-body: #ffffff;
     --bg-sourceblock: #f2f2f2;
@@ -248,7 +248,7 @@ code {
     background: var(--bg-code);
     border-radius: 5px;
     color: var(--fg-code);
-    font: 0.96em var(--font-monospace, monospace);
+    font: 0.85em var(--font-monospace, monospace);
     padding: .1em .25em;
 }
 
@@ -259,7 +259,7 @@ code {
 pre {
     background: var(--bg-sourceblock);
     font-family: var(--font-monospace);
-    font-size: 0.95em;
+    font-size: 0.85em;
     overflow: auto;
     margin: 1.2em 0;
     padding: 1rem 1.25rem;
