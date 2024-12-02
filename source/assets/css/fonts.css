@@ -1,7 +1,6 @@
 @font-face {
-  font-family: 'Cascadia Mono';
-  src:
-      local('Cascadia Mono'),
-      url('/assets/fonts/CascadiaMono.woff2') format('woff2'),
-      url('/assets/fonts/CascadiaMono.ttf') format('truetype');
+    font-family: 'Cascadia Code';
+    src: url('/assets/fonts/CascadiaCode.woff2') format('woff2'),
+         url('/assets/fonts/CascadiaCode.ttf') format('truetype'),
+         url('/assets/fonts/CascadiaCode-Regular.otf') format('opentype');
 }
