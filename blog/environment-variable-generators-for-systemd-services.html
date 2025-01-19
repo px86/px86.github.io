@@ -36,9 +36,9 @@
 <header>
 <h1 class="title">Environment variable generators for systemd services</h1>
 </header>
-<div id="outline-container-org12fe821" class="outline-2">
-<h2 id="org12fe821">The problem</h2>
-<div class="outline-text-2" id="text-org12fe821">
+<div id="outline-container-org2dbd98e" class="outline-2">
+<h2 id="org2dbd98e">The problem</h2>
+<div class="outline-text-2" id="text-org2dbd98e">
 <p>
 On my GNU/Linux computer, I do not use a login manager. I log in from the tty. And if the tty that I am logging in from is <code>tty1</code>, I start the <code>Hyprland</code> wayland compositor.
 </p>
@@ -69,9 +69,9 @@ But the problem arose when I started using <code>systemd</code> user services. I
 </div>
 </div>
 
-<div id="outline-container-orgf70ba5a" class="outline-2">
-<h2 id="orgf70ba5a">The reason</h2>
-<div class="outline-text-2" id="text-orgf70ba5a">
+<div id="outline-container-org4707701" class="outline-2">
+<h2 id="org4707701">The reason</h2>
+<div class="outline-text-2" id="text-org4707701">
 <p>
 Section 2.1 of the <a href="https://wiki.archlinux.org/title/Systemd/User">ArchWiki systemd/User</a> page says:
 </p>
@@ -88,9 +88,9 @@ Now what?
 </div>
 </div>
 
-<div id="outline-container-orgae746e9" class="outline-2">
-<h2 id="orgae746e9">The fix</h2>
-<div class="outline-text-2" id="text-orgae746e9">
+<div id="outline-container-org0b2ede1" class="outline-2">
+<h2 id="org0b2ede1">The fix</h2>
+<div class="outline-text-2" id="text-org0b2ede1">
 <p>
 The same <a href="https://wiki.archlinux.org/title/Systemd/User">ArchWiki page</a> also lists the ways in which environment variables can be set for the services. The first few solutions suggest to put <code>.conf</code> files containing lines in the form of <code>NAME=VALUE</code>, into certain directories. This would have worked for static key-value pairs. But in my case, I needed to set certain variables (like <code>PATH</code>) dynamically.
 </p>
@@ -105,9 +105,9 @@ A environment-generator is an executable, that systemd will invoke very early on
 </div>
 
 
-<div id="outline-container-org66275a9" class="outline-3">
-<h3 id="org66275a9">A simple environment-generator</h3>
-<div class="outline-text-3" id="text-org66275a9">
+<div id="outline-container-org82369ee" class="outline-3">
+<h3 id="org82369ee">A simple environment-generator</h3>
+<div class="outline-text-3" id="text-org82369ee">
 <div class="org-src-container">
 <pre class="src src-sh">
 <span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/sh</span>
