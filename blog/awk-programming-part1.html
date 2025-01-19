@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-12-02 -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 2025-01-19 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AWK Programming - Part 1</title>
-<meta name="generator" content="Org mode">
-<meta name="author" content="Pushkar Raj">
+<meta name="author" content="Pushkar Raj" />
+<meta name="generator" content="Org Mode" />
 <link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/> 
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css"/> 
 <link rel="stylesheet" type="text/css" href="/assets/css/fonts.css"/> 
@@ -32,10 +32,10 @@
   <div id="date"><span class="timestamp">2023-04-15</span></div>
 </div>
 </header>
-<main id="content">
+<main id="content" class="content">
 <header>
 <h1 class="title">AWK Programming - Part 1</h1>
-<p class="subtitle">Introduction, patterns, actions, and rules</p>
+<p class="subtitle" role="doc-subtitle">Introduction, patterns, actions, and rules</p>
 </header><p>
 <a href="https://en.wikipedia.org/wiki/AWK">AWK</a> is a very powerful text processing scripting language and utility. It is a standard feature of most UNIX like operating systems. It is named after its creators: Alfred Aho (A), Peter Weinberger (W), and Brian Kernighan (K). If you want to be an effective user of UNIX like systems, some knowledge of AWK (together with some shell scripting) is absolutely necessary.
 </p>
@@ -52,9 +52,9 @@ I came to know that on my <i>Debian 11 bullseye</i> system, the default installa
 Anyways let's get started.
 </p>
 
-<div id="outline-container-orga5d694f" class="outline-2">
-<h2 id="orga5d694f">Invoking awk</h2>
-<div class="outline-text-2" id="text-orga5d694f">
+<div id="outline-container-orgb50c38f" class="outline-2">
+<h2 id="orgb50c38f">Invoking awk</h2>
+<div class="outline-text-2" id="text-orgb50c38f">
 <p>
 The most common ways of calling <code>awk</code> is as follows:
 </p>
@@ -106,9 +106,9 @@ Notice the minus <code>-</code> in the list of file names. It means <code>stdin<
 </div>
 </div>
 
-<div id="outline-container-orgc0c1e4c" class="outline-2">
-<h2 id="orgc0c1e4c">Rules - pattern, action pairs</h2>
-<div class="outline-text-2" id="text-orgc0c1e4c">
+<div id="outline-container-org855414c" class="outline-2">
+<h2 id="org855414c">Rules - pattern, action pairs</h2>
+<div class="outline-text-2" id="text-org855414c">
 <p>
 <i>An awk program is a collection of one or more rules. Each rule consists of a pattern and an associated action.</i>
 </p>
@@ -123,7 +123,7 @@ The following pseudocode shows the flow of an awk program:
     <span class="org-comment-delimiter"># </span><span class="org-comment">iterate over each rule in the awk program</span>
     <span class="org-keyword">for</span> rule <span class="org-keyword">in</span> program.rules:
         <span class="org-comment-delimiter"># </span><span class="org-comment">match the line against the pattern in the rule</span>
-        <span class="org-keyword">if</span> match(rule.pattern, line):
+        <span class="org-keyword">if</span> <span class="org-keyword">match</span>(rule.pattern, line):
             <span class="org-comment-delimiter"># </span><span class="org-comment">execute the action if the match is successful</span>
             execute(rule.action, line)
 </pre>
@@ -160,9 +160,9 @@ The 1st and the 3rd line matched with the <i><i>apples</i></i> pattern, and henc
 </p>
 </div>
 
-<div id="outline-container-org62d614b" class="outline-3">
-<h3 id="org62d614b">The BEGIN and END special patterns</h3>
-<div class="outline-text-3" id="text-org62d614b">
+<div id="outline-container-orgb2396b6" class="outline-3">
+<h3 id="orgb2396b6">The BEGIN and END special patterns</h3>
+<div class="outline-text-3" id="text-orgb2396b6">
 <p>
 The <code>BEGIN</code> and <code>END</code> are special patterns in awk. The action associated with the <code>BEGIN</code> pattern is executed before any of the input files are processed. Similarly, the action associated with the <code>END</code> pattern is executed when all the input files are processed.
 </p>
@@ -174,9 +174,9 @@ We will get back to this pattern-action pair concept soon. But let's learn about
 </div>
 </div>
 
-<div id="outline-container-org902a51c" class="outline-2">
-<h2 id="org902a51c">Records, fields, $0, $1, &#x2026; $NF</h2>
-<div class="outline-text-2" id="text-org902a51c">
+<div id="outline-container-orgfb18f04" class="outline-2">
+<h2 id="orgfb18f04">Records, fields, $0, $1, &#x2026; $NF</h2>
+<div class="outline-text-2" id="text-orgfb18f04">
 <p>
 <i>Awk works on a file, one record at a time.</i>
 </p>
@@ -206,10 +206,10 @@ In a record, <code>$1</code> refers to the first field, <code>$2</code> to the s
 </main>
 <footer id="postamble" class="status">
 <p class="footer-block">
-  Copyright &copy 2021-2024 Pushkar Raj. Read the notice about <a href="/license.html">license terms</a>.
+  Copyright &copy 2021-2025 Pushkar Raj. Read the notice about <a href="/license.html">license terms</a>.
 </p>
 <p class="footer-block">
-  Created using <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.3)
+  Created using <a href="https://www.gnu.org/software/emacs/">Emacs</a> 29.3 (<a href="https://orgmode.org">Org</a> mode 9.6.15)
 </p>
 </footer>
 </body>

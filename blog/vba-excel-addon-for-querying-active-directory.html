@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-12-02 -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 2025-01-19 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Excel Add-on for querying Active Directory</title>
-<meta name="generator" content="Org mode">
-<meta name="author" content="Pushkar Raj">
+<meta name="author" content="Pushkar Raj" />
+<meta name="generator" content="Org Mode" />
 <link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/> 
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css"/> 
 <link rel="stylesheet" type="text/css" href="/assets/css/fonts.css"/> 
@@ -32,7 +32,7 @@
   <div id="date"><span class="timestamp">2024-08-29</span></div>
 </div>
 </header>
-<main id="content">
+<main id="content" class="content">
 <header>
 <h1 class="title">Excel Add-on for querying Active Directory</h1>
 </header><p>
@@ -52,13 +52,13 @@ Public Function getADDomain() As String
     On Error GoTo 0
 
     If (objLdap Is Nothing) Then
-	Exit Function
+        Exit Function
     End If
 
     strLdapDomain = objLdap.Get("defaultNamingContext")
 
     If (Trim(strLdapDomain) = "") Then
-	Exit Function
+        Exit Function
     Else
     getADDomain = strLdapDomain
     End If
@@ -82,45 +82,45 @@ Public Function ADUserProperty(ByVal strUserId As String, ByVal adField As Strin
 
     ' Set the query properties
     With objLdapCommand
-	' Set the connection
-	.ActiveConnection = objLdapConnection
+        ' Set the connection
+        .ActiveConnection = objLdapConnection
 
-	' Search the AD recursively, starting at the root of the domain
-	.CommandText = "&lt;LDAP://" &amp; Trim(domainStr) &amp; "&gt;;" &amp; _
-	  "(&amp;(objectCategory=User)" &amp; _
-	  "(|(sAMAccountName=" &amp; Trim(strUserId) &amp; ")" &amp; _
-	  "(distinguishedName=" &amp; Trim(strUserId) &amp; ")" &amp; _
-	  "(displayName=" &amp; Trim(strUserId) &amp; ")" &amp; _
-	  "(cn=" &amp; Trim(strUserId) &amp; ")" &amp; _
-	  "(mail=" &amp; Trim(strUserId) &amp; ")));" &amp; _
-	  Trim(adField) &amp; ";subtree"
+        ' Search the AD recursively, starting at the root of the domain
+        .CommandText = "&lt;LDAP://" &amp; Trim(domainStr) &amp; "&gt;;" &amp; _
+          "(&amp;(objectCategory=User)" &amp; _
+          "(|(sAMAccountName=" &amp; Trim(strUserId) &amp; ")" &amp; _
+          "(distinguishedName=" &amp; Trim(strUserId) &amp; ")" &amp; _
+          "(displayName=" &amp; Trim(strUserId) &amp; ")" &amp; _
+          "(cn=" &amp; Trim(strUserId) &amp; ")" &amp; _
+          "(mail=" &amp; Trim(strUserId) &amp; ")));" &amp; _
+          Trim(adField) &amp; ";subtree"
     End With
 
     ' Execute LDAP query
     Set objLdapRecordSet = objLdapCommand.Execute
 
     If (objLdapRecordSet.BOF Or objLdapRecordSet.EOF) Then
-	ADUserProperty = "0"
-	Exit Function
+        ADUserProperty = "0"
+        Exit Function
     Else
-	' Walk through all users
-	Do While (Not objLdapRecordSet.EOF)
+        ' Walk through all users
+        Do While (Not objLdapRecordSet.EOF)
 
-	    objField = objLdapRecordSet.Fields(Trim(adField))
+            objField = objLdapRecordSet.Fields(Trim(adField))
 
-	    If (Trim(adField) = "description") Then
-	     ADUserProperty = Join(VariantArrayToStringArray(objField))
-	    ElseIf (objField &lt;&gt; vbNull) Then
-	       ADUserProperty = objField
-	    End If
-	     ' Next record
-	     Call objLdapRecordSet.MoveNext
-	 Loop
+            If (Trim(adField) = "description") Then
+             ADUserProperty = Join(VariantArrayToStringArray(objField))
+            ElseIf (objField &lt;&gt; vbNull) Then
+               ADUserProperty = objField
+            End If
+             ' Next record
+             Call objLdapRecordSet.MoveNext
+         Loop
 
-	 If (Not objLdapRecordSet Is Nothing) Then
-	    Call objLdapRecordSet.Close
-	    Set objLdapRecordSet = Nothing
-	 End If
+         If (Not objLdapRecordSet Is Nothing) Then
+            Call objLdapRecordSet.Close
+            Set objLdapRecordSet = Nothing
+         End If
     End If
     Set objLdapCommand = Nothing
 End Function
@@ -130,9 +130,9 @@ Public Function managerOf(ByVal strUserId As String, Optional ByVal domainStr As
 
     managerDN = ADUserProperty(strUserId, "manager", domainStr)
     If (managerDN = "0") Then
-	managerOf = "0"
+        managerOf = "0"
     Else
-	managerOf = ADUserProperty(managerDN, "cn", domainStr)
+        managerOf = ADUserProperty(managerDN, "cn", domainStr)
     End If
 End Function
 
@@ -141,18 +141,18 @@ Public Function managerEmailOf(ByVal strUserId As String, Optional ByVal domainS
 
     managerDN = ADUserProperty(strUserId, "manager", domainStr)
     If (managerDN = "0") Then
-	managerEmailOf = "0"
+        managerEmailOf = "0"
     Else
-	managerEmailOf = ADUserProperty(managerDN, "mail", domainStr)
+        managerEmailOf = ADUserProperty(managerDN, "mail", domainStr)
     End If
 End Function
 
 Public Function emailOf(ByVal strUserId As String, Optional ByVal domainStr As String = "DEFAULT_DOMAIN") As String
-	emailOf = ADUserProperty(strUserId, "mail", domainStr)
+        emailOf = ADUserProperty(strUserId, "mail", domainStr)
 End Function
 
 Public Function descriptionOf(ByVal strUserId As String, Optional ByVal domainStr As String = "DEFAULT_DOMAIN") As String
-	descriptionOf = ADUserProperty(strUserId, "description", domainStr)
+        descriptionOf = ADUserProperty(strUserId, "description", domainStr)
 End Function
 
 
@@ -183,23 +183,23 @@ End Sub
 Private Sub ParamArrayToStringArrayInternal(ByVal arrVariants As Variant, ByRef arrStrings() As String, ByRef intLength As Integer)
     ' Parameter is array?
     If (IsArray(arrVariants)) Then
-	Dim i As Integer
-	Dim objValue As Variant
-	' Walk through the specified partner objects
-	For i = LBound(arrVariants) To UBound(arrVariants) Step 1
-	    ' Get the value
-	    objValue = arrVariants(i)
-	    ' Array to string
-	    Call ParamArrayToStringArrayInternal(objValue, arrStrings, intLength)
-	Next
+        Dim i As Integer
+        Dim objValue As Variant
+        ' Walk through the specified partner objects
+        For i = LBound(arrVariants) To UBound(arrVariants) Step 1
+            ' Get the value
+            objValue = arrVariants(i)
+            ' Array to string
+            Call ParamArrayToStringArrayInternal(objValue, arrStrings, intLength)
+        Next
     Else
-	' Next item
-	intLength = intLength + 1
-	' Expand array
-	ReDim Preserve arrStrings(1 To intLength)
+        ' Next item
+        intLength = intLength + 1
+        ' Expand array
+        ReDim Preserve arrStrings(1 To intLength)
 
-	' Set the value
-	arrStrings(intLength) = CStr(arrVariants)
+        ' Set the value
+        arrStrings(intLength) = CStr(arrVariants)
     End If
 End Sub
 
@@ -215,10 +215,10 @@ End Function
 </main>
 <footer id="postamble" class="status">
 <p class="footer-block">
-  Copyright &copy 2021-2024 Pushkar Raj. Read the notice about <a href="/license.html">license terms</a>.
+  Copyright &copy 2021-2025 Pushkar Raj. Read the notice about <a href="/license.html">license terms</a>.
 </p>
 <p class="footer-block">
-  Created using <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.3)
+  Created using <a href="https://www.gnu.org/software/emacs/">Emacs</a> 29.3 (<a href="https://orgmode.org">Org</a> mode 9.6.15)
 </p>
 </footer>
 </body>

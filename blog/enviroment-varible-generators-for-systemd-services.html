@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2025-01-19 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Environment variable generators for systemd services</title>
+<meta name="author" content="Pushkar Raj" />
+<meta name="generator" content="Org Mode" />
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/> 
+<link rel="stylesheet" type="text/css" href="/assets/css/style.css"/> 
+<link rel="stylesheet" type="text/css" href="/assets/css/fonts.css"/> 
+<script type="text/javascript" src="/assets/js/script.js" defer></script> 
+</head>
+<body>
+<header id="preamble" class="status">
+<div class="container">
+  <div class="user-info">
+    <img alt="Profile Picture" src="https://avatars.githubusercontent.com/u/86090336"/>
+    <a class="user-name" href="/">Pushkar Raj</a>
+    <div id="toggler"></div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="https://github.com/px86">Github</a></li>
+    </ul>
+  </nav>
+  <!-- Use CSS and JS to place this date below the post heading. -->
+  <div id="date"><span class="timestamp">2025-01-19</span></div>
+</div>
+</header>
+<main id="content" class="content">
+<header>
+<h1 class="title">Environment variable generators for systemd services</h1>
+</header>
+<div id="outline-container-orgc5bb43e" class="outline-2">
+<h2 id="orgc5bb43e">The problem</h2>
+<div class="outline-text-2" id="text-orgc5bb43e">
+<p>
+On my GNU/Linux computer, I do not use a login manager. I log in from the tty. And if the tty that I am logging in from is <code>tty1</code>, I start the <code>Hyprland</code> wayland compositor.
+</p>
+
+<p>
+The following is at the very end of my <code>~/.profile</code> file.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-keyword">if</span> [ $(tty) = <span class="org-string">'/dev/tty1'</span> ]
+<span class="org-keyword">then</span>
+    <span class="org-keyword">exec</span> dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) Hyprland
+<span class="org-keyword">fi</span>
+</pre>
+</div>
+
+<p>
+I also setup all the environment variables, early in the <code>~/.profile</code> file. Most of these environment variables like <code>PATH</code>, <code>XDG_CONFIG_HOME</code>, <code>XDG_CACHE_HOME</code> etc. affect the behavior of other programs. While there are also a handful, that I use in my personal shell scripts.
+</p>
+
+<p>
+So far, this setup was working very well. The environment variables were setup, then the wayland session was started. And as a result, all the applications that I launched in that session inherited the environment variables.
+</p>
+
+<p>
+But the problem arose when I started using <code>systemd</code> user services. I noticed that when <code>emacs</code> was started by systemd as a user service, it no longer had those environment variables set up.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org055d590" class="outline-2">
+<h2 id="org055d590">Reason</h2>
+<div class="outline-text-2" id="text-org055d590">
+<p>
+Section 2.1 of the <a href="https://wiki.archlinux.org/title/Systemd/User">ArchWiki systemd/User</a> page says:
+</p>
+
+<blockquote>
+<p>
+Units started by user instance of systemd do not inherit any of the environment variables set in places like .bashrc etc
+</p>
+</blockquote>
+
+<p>
+Now what?
+</p>
+</div>
+</div>
+
+<div id="outline-container-org32ac30d" class="outline-2">
+<h2 id="org32ac30d">The fix</h2>
+<div class="outline-text-2" id="text-org32ac30d">
+<p>
+The same <a href="https://wiki.archlinux.org/title/Systemd/User">ArchWiki page</a> also lists the ways in which environment variables can be set for the services. The first few solutions suggest to put <code>.conf</code> files containing lines in the form of <code>NAME=VALUE</code>, into certain directories. This would have worked for static key-value pairs. But in my case, I needed to set certain variables (like <code>PATH</code>) dynamically.
+</p>
+
+<p>
+Hence, I went for the <code>systemd.environment-generator(7)</code> solution.
+</p>
+
+<p>
+A environment-generator is an executable, that systemd will invoke very early on, before starting any service. This environment-generator executable is supposed to print lines in the format of <code>NAME=VALUE</code> to <code>stdout</code>. systemd will then set <code>NAME</code> environment variable to <code>VALUE</code> and when it starts a service, these environment variables will be visible to them.
+</p>
+</div>
+
+
+<div id="outline-container-org8308ff7" class="outline-3">
+<h3 id="org8308ff7">The script</h3>
+<div class="outline-text-3" id="text-org8308ff7">
+<div class="org-src-container">
+<pre class="src src-sh">
+<span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/sh</span>
+
+[ -d <span class="org-string">"$HOME/.local/bin"</span> ]     &amp;&amp; <span class="org-variable-name">PATH</span>=<span class="org-string">"$HOME/.local/bin:$PATH"</span>
+[ -d <span class="org-string">"$HOME/.local/scripts"</span> ] &amp;&amp; <span class="org-variable-name">PATH</span>=<span class="org-string">"$HOME/.local/scripts:$PATH"</span>
+[ -d <span class="org-string">"/opt/clojure/bin"</span> ]     &amp;&amp; <span class="org-variable-name">PATH</span>=<span class="org-string">"/opt/clojure/bin:$PATH"</span>
+
+<span class="org-variable-name">XDG_DATA_HOME</span>=<span class="org-string">"$HOME"</span>/.local/share
+<span class="org-variable-name">XDG_CACHE_HOME</span>=<span class="org-string">"$HOME"</span>/.cache
+<span class="org-variable-name">XDG_CONFIG_HOME</span>=<span class="org-string">"$HOME"</span>/.config
+
+printf <span class="org-string">"PATH=%s\n"</span>            <span class="org-string">"$PATH"</span>
+printf <span class="org-string">"XDG_DATA_HOME=%s\n"</span>   <span class="org-string">"$XDG_DATA_HOME"</span>
+printf <span class="org-string">"XDG_CACHE_HOME=%s\n"</span>  <span class="org-string">"$XDG_CACHE_HOME"</span>
+printf <span class="org-string">"XDG_CONFIG_HOME=%s\n"</span> <span class="org-string">"$XDG_CONFIG_HOME"</span>
+
+</pre>
+</div>
+
+<p>
+I used emacs <code>org-mode</code> to tangle this code snippet into an executable script, and then put it into the <code>/usr/local/lib/systemd/user-environment-generators/</code> directory.
+</p>
+
+<p>
+When I rebooted my computer, and launched emacs, I was able to see these environment variables using <code>M-x getenv</code>.
+</p>
+</div>
+</div>
+</div>
+</main>
+<footer id="postamble" class="status">
+<p class="footer-block">
+  Copyright &copy 2021-2025 Pushkar Raj. Read the notice about <a href="/license.html">license terms</a>.
+</p>
+<p class="footer-block">
+  Created using <a href="https://www.gnu.org/software/emacs/">Emacs</a> 29.3 (<a href="https://orgmode.org">Org</a> mode 9.6.15)
+</p>
+</footer>
+</body>
+</html>
