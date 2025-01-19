@@ -22,7 +22,7 @@ So far, this setup was working very well. The environment variables were setup, 
 
 But the problem arose when I started using =systemd= user services. I noticed that when =emacs= was started by systemd as a user service, it no longer had those environment variables set up.
 
-* Reason
+* The reason
 
 Section 2.1 of the [[https://wiki.archlinux.org/title/Systemd/User][ArchWiki systemd/User]] page says:
 
@@ -41,7 +41,7 @@ Hence, I went for the =systemd.environment-generator(7)= solution.
 A environment-generator is an executable, that systemd will invoke very early on, before starting any service. This environment-generator executable is supposed to print lines in the format of =NAME=VALUE= to =stdout=. systemd will then set =NAME= environment variable to =VALUE= and when it starts a service, these environment variables will be visible to them.
 
 
-** The script
+** A simple environment-generator
 
 #+begin_src sh :tangle ./10-path-and-xdg-envs.sh :shebang #!/bin/sh
 
