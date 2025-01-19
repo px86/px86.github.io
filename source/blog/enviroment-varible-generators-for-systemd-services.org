@@ -1,0 +1,67 @@
+#+TITLE: Environment variable generators for systemd services
+#+AUTHOR: Pushkar Raj
+#+EMAIL: px86@protonmail.com
+#+DATE: [2025-01-19 Sun]
+
+* The problem
+
+On my GNU/Linux computer, I do not use a login manager. I log in from the tty. And if the tty that I am logging in from is =tty1=, I start the =Hyprland= wayland compositor.
+
+The following is at the very end of my =~/.profile= file.
+
+#+begin_src shell
+  if [ $(tty) = '/dev/tty1' ]
+  then
+      exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) Hyprland
+  fi
+#+end_src
+
+I also setup all the environment variables, early in the =~/.profile= file. Most of these environment variables like =PATH=, =XDG_CONFIG_HOME=, =XDG_CACHE_HOME= etc. affect the behavior of other programs. While there are also a handful, that I use in my personal shell scripts.
+
+So far, this setup was working very well. The environment variables were setup, then the wayland session was started. And as a result, all the applications that I launched in that session inherited the environment variables.
+
+But the problem arose when I started using =systemd= user services. I noticed that when =emacs= was started by systemd as a user service, it no longer had those environment variables set up.
+
+* Reason
+
+Section 2.1 of the [[https://wiki.archlinux.org/title/Systemd/User][ArchWiki systemd/User]] page says:
+
+#+begin_quote
+Units started by user instance of systemd do not inherit any of the environment variables set in places like .bashrc etc
+#+end_quote
+
+Now what?
+
+* The fix
+
+The same [[https://wiki.archlinux.org/title/Systemd/User][ArchWiki page]] also lists the ways in which environment variables can be set for the services. The first few solutions suggest to put =.conf= files containing lines in the form of =NAME=VALUE=, into certain directories. This would have worked for static key-value pairs. But in my case, I needed to set certain variables (like =PATH=) dynamically.
+
+Hence, I went for the =systemd.environment-generator(7)= solution.
+
+A environment-generator is an executable, that systemd will invoke very early on, before starting any service. This environment-generator executable is supposed to print lines in the format of =NAME=VALUE= to =stdout=. systemd will then set =NAME= environment variable to =VALUE= and when it starts a service, these environment variables will be visible to them.
+
+
+** The script
+
+#+begin_src sh :tangle ./10-path-and-xdg-envs.sh :shebang #!/bin/sh
+
+  #!/bin/sh
+
+  [ -d "$HOME/.local/bin" ]     && PATH="$HOME/.local/bin:$PATH"
+  [ -d "$HOME/.local/scripts" ] && PATH="$HOME/.local/scripts:$PATH"
+  [ -d "/opt/clojure/bin" ]     && PATH="/opt/clojure/bin:$PATH"
+
+  XDG_DATA_HOME="$HOME"/.local/share
+  XDG_CACHE_HOME="$HOME"/.cache
+  XDG_CONFIG_HOME="$HOME"/.config
+
+  printf "PATH=%s\n"            "$PATH"
+  printf "XDG_DATA_HOME=%s\n"   "$XDG_DATA_HOME"
+  printf "XDG_CACHE_HOME=%s\n"  "$XDG_CACHE_HOME"
+  printf "XDG_CONFIG_HOME=%s\n" "$XDG_CONFIG_HOME"
+
+#+end_src
+
+I used emacs =org-mode= to tangle this code snippet into an executable script, and then put it into the =/usr/local/lib/systemd/user-environment-generators/= directory.
+
+When I rebooted my computer, and launched emacs, I was able to see these environment variables using =M-x getenv=.

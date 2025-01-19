@@ -1,20 +1,5 @@
 #+TITLE: About Me
 #+AUTHOR: Pushkar Raj
-#+EMAIL: px86@protonmail.com
 #+OPTIONS: toc:nil
 
-Hi there, I'm Pushkar Raj. I am from India. It's nice to meet you!
-
-* My setup
-
-- Distribution: /Debian 12 bookworm/
-
-  I began using GNU/Linux in 2019. I tried /Ubuntu/, /Linux Mint/ (liked it better than Ubuntu), and in 2020, moved to /Arch Linux/ (a rolling-release distro). It was a great learning experience, but frequent breakage during updates made me realize that I don't need the latest and the greatest software. I needed something with rock-solid stability. So, in 2021 I finally shifted to Debian with the release of /Debian 11 bullseye/. I am really happy with my decision.
-
-- Window manager: /Qtile/
-
-  I have used desktop environments like Gnome, Cinnamon, Xfce, and KDE (really liked it) in the past. However, I wanted something minimal, and more cutomizable. I experimented with tiling window managers like =dwm= and =awesomewm=. Finally, I settled for =Qtile=, as it is feature rich, and is configured in python, something that I am comfortable with. I have been using Qtile since 2021.
-
-- Text editor: /Emacs/
-
-  I love emacs.
+Hi, I am Pushkar. I currently live in Delhi NCR, India, and work as an analyst for one of the big fours. In my free time, I like to code and learn new technologies. I am a huge proponent of free and open source software, that respect the user's privacy. I occasionally read philosophical texts, mostly related to stoicism.
