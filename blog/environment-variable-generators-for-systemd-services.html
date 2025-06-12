@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2025-01-19 -->
+<!-- 2025-06-12 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Environment variable generators for systemd services</title>
@@ -36,9 +36,9 @@
 <header>
 <h1 class="title">Environment variable generators for systemd services</h1>
 </header>
-<div id="outline-container-org2dbd98e" class="outline-2">
-<h2 id="org2dbd98e">The problem</h2>
-<div class="outline-text-2" id="text-org2dbd98e">
+<div id="outline-container-orgf013a41" class="outline-2">
+<h2 id="orgf013a41">The problem</h2>
+<div class="outline-text-2" id="text-orgf013a41">
 <p>
 On my GNU/Linux computer, I do not use a login manager. I log in from the tty. And if the tty that I am logging in from is <code>tty1</code>, I start the <code>Hyprland</code> wayland compositor.
 </p>
@@ -48,9 +48,9 @@ The following is at the very end of my <code>~/.profile</code> file.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-shell"><span class="org-keyword">if</span> [ $(tty) = <span class="org-string">'/dev/tty1'</span> ]
+<pre class="src src-shell"><span class="org-keyword">if</span> [ $(<span class="org-sh-quoted-exec">tty</span>) = <span class="org-string">'/dev/tty1'</span> ]
 <span class="org-keyword">then</span>
-    <span class="org-keyword">exec</span> dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) Hyprland
+    <span class="org-keyword">exec</span> dbus-launch --autolaunch=$(<span class="org-sh-quoted-exec">cat /var/lib/dbus/machine-id</span>) Hyprland
 <span class="org-keyword">fi</span>
 </pre>
 </div>
@@ -69,9 +69,9 @@ But the problem arose when I started using <code>systemd</code> user services. I
 </div>
 </div>
 
-<div id="outline-container-org4707701" class="outline-2">
-<h2 id="org4707701">The reason</h2>
-<div class="outline-text-2" id="text-org4707701">
+<div id="outline-container-orga49dd85" class="outline-2">
+<h2 id="orga49dd85">The reason</h2>
+<div class="outline-text-2" id="text-orga49dd85">
 <p>
 Section 2.1 of the <a href="https://wiki.archlinux.org/title/Systemd/User">ArchWiki systemd/User</a> page says:
 </p>
@@ -88,9 +88,9 @@ Now what?
 </div>
 </div>
 
-<div id="outline-container-org0b2ede1" class="outline-2">
-<h2 id="org0b2ede1">The fix</h2>
-<div class="outline-text-2" id="text-org0b2ede1">
+<div id="outline-container-orgf7aa68b" class="outline-2">
+<h2 id="orgf7aa68b">The fix</h2>
+<div class="outline-text-2" id="text-orgf7aa68b">
 <p>
 The same <a href="https://wiki.archlinux.org/title/Systemd/User">ArchWiki page</a> also lists the ways in which environment variables can be set for the services. The first few solutions suggest to put <code>.conf</code> files containing lines in the form of <code>NAME=VALUE</code>, into certain directories. This would have worked for static key-value pairs. But in my case, I needed to set certain variables (like <code>PATH</code>) dynamically.
 </p>
@@ -105,9 +105,9 @@ A environment-generator is an executable, that systemd will invoke very early on
 </div>
 
 
-<div id="outline-container-org82369ee" class="outline-3">
-<h3 id="org82369ee">A simple environment-generator</h3>
-<div class="outline-text-3" id="text-org82369ee">
+<div id="outline-container-orgfd95a4a" class="outline-3">
+<h3 id="orgfd95a4a">A simple environment-generator</h3>
+<div class="outline-text-3" id="text-orgfd95a4a">
 <div class="org-src-container">
 <pre class="src src-sh">
 <span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/sh</span>
@@ -120,10 +120,10 @@ A environment-generator is an executable, that systemd will invoke very early on
 <span class="org-variable-name">XDG_CACHE_HOME</span>=<span class="org-string">"$HOME"</span>/.cache
 <span class="org-variable-name">XDG_CONFIG_HOME</span>=<span class="org-string">"$HOME"</span>/.config
 
-printf <span class="org-string">"PATH=%s\n"</span>            <span class="org-string">"$PATH"</span>
-printf <span class="org-string">"XDG_DATA_HOME=%s\n"</span>   <span class="org-string">"$XDG_DATA_HOME"</span>
-printf <span class="org-string">"XDG_CACHE_HOME=%s\n"</span>  <span class="org-string">"$XDG_CACHE_HOME"</span>
-printf <span class="org-string">"XDG_CONFIG_HOME=%s\n"</span> <span class="org-string">"$XDG_CONFIG_HOME"</span>
+<span class="org-builtin">printf</span> <span class="org-string">"PATH=%s\n"</span>            <span class="org-string">"$PATH"</span>
+<span class="org-builtin">printf</span> <span class="org-string">"XDG_DATA_HOME=%s\n"</span>   <span class="org-string">"$XDG_DATA_HOME"</span>
+<span class="org-builtin">printf</span> <span class="org-string">"XDG_CACHE_HOME=%s\n"</span>  <span class="org-string">"$XDG_CACHE_HOME"</span>
+<span class="org-builtin">printf</span> <span class="org-string">"XDG_CONFIG_HOME=%s\n"</span> <span class="org-string">"$XDG_CONFIG_HOME"</span>
 
 </pre>
 </div>
