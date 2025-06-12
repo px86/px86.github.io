@@ -54,7 +54,7 @@
              :recursive t
              :base-directory  "./source/assets"
              :publishing-directory "./build/assets"
-             :base-extension "css\\|js\\|png\\|jpg\\|gif\\|svg\\|ico\\|pdf\\|mp3\\|wav\\|woff2?\\|ttf\\|csv"
+             :base-extension "css\\|js\\|png\\|jpg\\|gif\\|svg\\|ico\\|pdf\\|mp3\\|wav\\|woff2?\\|ttf\\|csv\\|asc\\|sh"
              :publishing-function 'org-publish-attachment
              )))
 
