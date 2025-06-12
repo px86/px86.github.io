@@ -1,6 +1,6 @@
 #+TITLE: Blog posts
 
-- {{{timestamp(2025-01-19)}}} [[file:enviroment-varible-generators-for-systemd-services.org][Environment variable generators for systemd services]]
+- {{{timestamp(2025-01-19)}}} [[file:environment-variable-generators-for-systemd-services.org][Environment variable generators for systemd services]]
 - {{{timestamp(2024-08-29)}}} [[file:vba-excel-addon-for-querying-active-directory.org][Excel Add-on for querying Active Directory]]
 - {{{timestamp(2024-08-01)}}} [[file:the-private-access-modifier-in-java.org][The private access modifier in Java]]
 - {{{timestamp(2023-05-05)}}} [[file:gnu-readline-cheat-sheet.org][GNU Readline Cheat Sheet]]
